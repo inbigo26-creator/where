@@ -29,6 +29,7 @@ export default function App() {
   const [availableCount, setAvailableCount] = useState(0);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState<'latest' | 'name'>('latest');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -89,10 +90,18 @@ export default function App() {
     setIsUploadOpen(false);
   };
 
-  const filteredItems = items.filter(item => 
-    item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.location.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredItems = items
+    .filter(item => 
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.location.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortBy === 'latest') {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      } else {
+        return a.name.localeCompare(b.name, 'ko-KR');
+      }
+    });
 
   if (isLoading) {
     return (
@@ -163,7 +172,7 @@ export default function App() {
               최근 등록 물품 안내
             </h4>
             <div className="space-y-3">
-              {items.slice(0, 3).map((item) => (
+              {items.slice(0, 2).map((item) => (
                 <div key={item.id} className="flex gap-3">
                   <div className="w-1.5 h-1.5 rounded-full bg-brand-primary mt-1.5 shrink-0"></div>
                   <p className="text-xs text-brand-muted leading-relaxed font-medium">
@@ -193,9 +202,19 @@ export default function App() {
               />
             </div>
 
-            <div className="flex items-center gap-8 text-[11px] font-bold text-brand-muted uppercase tracking-[0.2em] w-full md:w-auto px-2 justify-center">
-              <span className="text-brand-primary relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-brand-primary">최신 등록순</span>
-              <span className="hover:text-brand-text cursor-pointer transition-colors">보관 장소별</span>
+            <div className="flex items-center gap-8 text-[11px] font-bold tracking-[0.2em] w-full md:w-auto px-2 justify-center">
+              <button 
+                onClick={() => setSortBy('latest')}
+                className={`transition-all relative uppercase ${sortBy === 'latest' ? 'text-brand-primary font-bold after:content-[""] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-brand-primary' : 'text-brand-muted hover:text-brand-text'}`}
+              >
+                최신 등록순
+              </button>
+              <button 
+                onClick={() => setSortBy('name')}
+                className={`transition-all relative uppercase ${sortBy === 'name' ? 'text-brand-primary font-bold after:content-[""] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-brand-primary' : 'text-brand-muted hover:text-brand-text'}`}
+              >
+                이름순
+              </button>
             </div>
           </div>
 
