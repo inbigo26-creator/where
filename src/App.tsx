@@ -174,12 +174,12 @@ export default function App() {
             </div>
           </div>
 
-          <div className="p-5 bg-slate-50 rounded-2xl border border-slate-100 lg:mt-auto">
-            <h4 className="text-[9px] font-bold text-brand-muted uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
-              <Clock size={12} />
+          <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 lg:mt-auto">
+            <h4 className="text-sm font-bold text-brand-text uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+              <Clock size={16} />
               최근 등록 물품 안내
             </h4>
-            <div className="space-y-3">
+            <div className="space-y-4">
               {items
                 .filter(item => {
                   const itemDate = item.createdAt ? (item.createdAt as any).toDate?.() || new Date(item.createdAt as any) : new Date();
@@ -188,11 +188,10 @@ export default function App() {
                   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                   return diffDays <= 7;
                 })
-                .slice(0, 2)
                 .map((item) => (
                   <div key={item.id} className="flex gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-brand-primary mt-1.5 shrink-0"></div>
-                    <p className="text-xs text-brand-muted leading-relaxed font-medium">
+                    <div className="w-1.5 h-1.5 rounded-full bg-brand-primary mt-2 shrink-0"></div>
+                    <p className="text-sm text-brand-muted leading-relaxed">
                       <span className="text-brand-text font-bold">{item.name}</span>({item.location})
                     </p>
                   </div>
@@ -205,7 +204,7 @@ export default function App() {
                   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                   return diffDays <= 7;
                 }).length === 0 && (
-                <p className="text-[10px] text-brand-muted/60 italic">최근 7일간 등록된 물품이 없습니다.</p>
+                <p className="text-xs text-brand-muted/60 italic">최근 7일간 등록된 물품이 없습니다.</p>
               )}
             </div>
           </div>
@@ -226,16 +225,16 @@ export default function App() {
               />
             </div>
 
-            <div className="flex items-center gap-8 text-[11px] font-bold tracking-[0.2em] w-full md:w-auto px-2 justify-center">
+            <div className="flex items-center bg-slate-100 p-1 rounded-xl w-full md:w-auto">
               <button 
                 onClick={() => setSortBy('latest')}
-                className={`transition-all relative uppercase ${sortBy === 'latest' ? 'text-brand-primary font-bold after:content-[""] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-brand-primary' : 'text-brand-muted hover:text-brand-text'}`}
+                className={`flex-1 md:flex-none px-6 py-2.5 rounded-lg text-xs font-bold transition-all ${sortBy === 'latest' ? 'bg-white text-brand-primary shadow-sm' : 'text-brand-muted hover:text-brand-text'}`}
               >
                 최신 등록순
               </button>
               <button 
                 onClick={() => setSortBy('name')}
-                className={`transition-all relative uppercase ${sortBy === 'name' ? 'text-brand-primary font-bold after:content-[""] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-brand-primary' : 'text-brand-muted hover:text-brand-text'}`}
+                className={`flex-1 md:flex-none px-6 py-2.5 rounded-lg text-xs font-bold transition-all ${sortBy === 'name' ? 'bg-white text-brand-primary shadow-sm' : 'text-brand-muted hover:text-brand-text'}`}
               >
                 이름순
               </button>
