@@ -72,7 +72,7 @@ export default function App() {
   };
 
   const handleUploadClick = () => {
-    const password = prompt('물품을 등록하려면 선생님 비밀번호(1004)를 입력하세요.');
+    const password = prompt('물품을 등록하려면 선생님 비밀번호를 입력하세요.');
     if (password === '1004') {
       if (!isTeacherMode) {
         setIsTeacherMode(true);

@@ -174,7 +174,7 @@ export default function UploadModal({ isOpen, onClose, onUpload }: UploadModalPr
                   </div>
 
                   <div>
-                    <label className="block text-sm font-bold text-brand-text mb-2 px-1">물건 설명 (공개)</label>
+                    <label className="block text-sm font-bold text-brand-text mb-2 px-1">물건 설명 (공개) (선택)</label>
                     <textarea
                       rows={2}
                       placeholder="학생들이 볼 수 있는 간단한 특징을 입력하세요."
@@ -188,7 +188,7 @@ export default function UploadModal({ isOpen, onClose, onUpload }: UploadModalPr
 
               <div className="bg-brand-primary/5 p-6 rounded-2xl border border-brand-primary/20 relative overflow-hidden">
                 <label className="flex items-center gap-2 text-sm font-bold text-brand-primary uppercase tracking-widest mb-3 relative z-10">
-                  본인 확인용 메모 (비공개)
+                  본인 확인용 메모 (비공개) (선택)
                   <HelpCircle size={16} className="opacity-70" />
                 </label>
                 <textarea
