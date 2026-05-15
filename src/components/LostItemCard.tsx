@@ -33,7 +33,7 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.98 }}
-      className="bg-white rounded-3xl border border-pink-50 p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row gap-5 hover:border-pink-200 transition-all cursor-pointer group"
+      className="bg-white rounded-3xl border border-green-50 p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row gap-5 hover:border-green-200 transition-all cursor-pointer group"
     >
       {/* Image Container */}
       <div className="w-full sm:w-32 h-40 sm:h-32 bg-slate-100 rounded-2xl flex items-center justify-center overflow-hidden shrink-0 grayscale group-hover:grayscale-0 transition-all relative">
@@ -68,7 +68,7 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
               <div className="flex gap-1 ml-2 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button 
                   onClick={(e) => { e.stopPropagation(); onCollect(item.id); }}
-                  className="p-1.5 bg-pink-50 text-pink-400 rounded-lg hover:bg-pink-400 hover:text-white transition-all"
+                  className="p-1.5 bg-green-50 text-green-500 rounded-lg hover:bg-green-500 hover:text-white transition-all"
                   title="수령 완료"
                 >
                   <CheckCircle size={14} />
@@ -88,8 +88,8 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
               <Calendar size={12} className="text-slate-400" />
               <span>{new Date(item.dateFound).toLocaleDateString()}</span>
             </div>
-            <div className="flex items-center gap-1.5 text-xs font-bold text-pink-400">
-              <div className="w-1.5 h-1.5 rounded-full bg-pink-300"></div>
+            <div className="flex items-center gap-1.5 text-xs font-bold text-green-500">
+              <div className="w-1.5 h-1.5 rounded-full bg-green-400"></div>
               <span>{item.location}</span>
             </div>
           </div>
@@ -111,7 +111,7 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
             </div>
           ) : (
             <div className="flex items-center gap-2 text-[10px] text-slate-400">
-              <Info size={12} className="text-pink-300 shrink-0" />
+              <Info size={12} className="text-green-400 shrink-0" />
               <p>방문 시 상세 특징 질문 답변 필요</p>
             </div>
           )}

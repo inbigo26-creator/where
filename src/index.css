@@ -4,44 +4,44 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   
-  --color-slate-50: #fffbf9; /* Soft cream/peach tint */
-  --color-slate-100: #fbf5f2;
-  --color-slate-200: #f5ece8;
-  --color-slate-300: #eaded9;
-  --color-slate-400: #cbbab5;
-  --color-slate-500: #a99893;
-  --color-slate-600: #897974;
-  --color-slate-700: #685a56;
-  --color-slate-800: #493c39;
-  --color-slate-900: #2b2120;
+  --color-slate-50: #fafdf8; /* Very light minty cream */
+  --color-slate-100: #f4f9ef;
+  --color-slate-200: #eef5e4;
+  --color-slate-300: #e2ecd3;
+  --color-slate-400: #9fb488;
+  --color-slate-500: #889c72;
+  --color-slate-600: #6b7a5a;
+  --color-slate-700: #4e5942;
+  --color-slate-800: #32392a;
+  --color-slate-900: #1a1f16;
 
-  --color-blue-50: #fff0f3; /* Cherry Blossom Pink */
-  --color-blue-100: #ffdeea;
-  --color-blue-500: #f8adc2; /* Pastel Pink */
-  --color-blue-600: #e09ba9; /* Muted Rose */
-  --color-blue-900: #8a4d5a;
+  --color-blue-50: #f1f9f1;
+  --color-blue-100: #e3f2e3;
+  --color-blue-500: #b8d8b0; /* Soft Spring Green */
+  --color-blue-600: #9dc093; /* Muted Leaf Green */
+  --color-blue-900: #4a5d45;
   
-  --color-pastel-green: #eaf6ea; /* Spring Green */
+  --color-pastel-green: #eaf6ea;
   --color-pastel-blue: #e3f2fd;
   --color-pastel-yellow: #fffde7;
   --color-pastel-pink: #feedef;
   
-  --color-brand-primary: #e09ba9;
+  --color-brand-primary: #9dc093;
   --color-brand-secondary: var(--color-slate-50);
 }
 
 @layer base {
   body {
-    @apply font-sans bg-slate-50 text-slate-800 antialiased;
+    @apply font-sans bg-slate-50 text-slate-700 antialiased;
   }
 }
 
 .card-minimal {
-  @apply bg-white rounded-[32px] border border-pink-100/50 shadow-sm transition-all hover:border-pink-200 hover:shadow-md;
+  @apply bg-white rounded-[32px] border border-green-100/50 shadow-sm transition-all hover:border-green-200 hover:shadow-md;
 }
 
 .btn-primary {
-  @apply bg-[#e09ba9] text-white rounded-2xl px-6 py-3 font-bold transition-all hover:bg-[#d48a99] active:scale-95 shadow-lg shadow-pink-100;
+  @apply bg-[#9dc093] text-white rounded-2xl px-6 py-3 font-bold transition-all hover:bg-[#8eb084] active:scale-95 shadow-lg shadow-green-100;
 }
 
 .btn-secondary {
@@ -49,6 +49,6 @@
 }
 
 .btn-dark {
-  @apply bg-[#b8d8b0] text-white rounded-2xl px-6 py-3 font-bold transition-all hover:bg-[#a6c89e] active:scale-95 shadow-lg shadow-green-100;
+  @apply bg-slate-700 text-white rounded-2xl px-6 py-3 font-bold transition-all hover:bg-slate-600 active:scale-95 shadow-lg shadow-slate-100;
 }
 

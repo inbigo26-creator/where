@@ -118,7 +118,7 @@ export default function App() {
           <div>
             <div className="mb-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2">메뉴</div>
             <div className="space-y-1">
-              <button className="flex items-center gap-3 w-full p-4 bg-slate-900 text-white rounded-2xl font-bold text-sm transition-all shadow-lg shadow-slate-200">
+              <button className="flex items-center gap-3 w-full p-4 bg-[#b8d8b0] text-white rounded-2xl font-bold text-sm transition-all shadow-lg shadow-green-100">
                 <PackageSearch size={18} />
                 전체 분실물 보기
               </button>
@@ -132,23 +132,23 @@ export default function App() {
             </div>
           </div>
 
-          <div className="p-6 bg-[#e09ba9] text-white rounded-[32px] relative overflow-hidden shadow-xl shadow-pink-100">
+          <div className="p-6 bg-[#9dc093] text-white rounded-[32px] relative overflow-hidden shadow-xl shadow-green-100">
             <div className="relative z-10">
-              <h3 className="text-[10px] uppercase tracking-[0.2em] text-pink-100 font-bold mb-5">수령 안내 가이드</h3>
+              <h3 className="text-[10px] uppercase tracking-[0.2em] text-green-50 font-bold mb-5">안내 가이드</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-7 h-7 rounded-full border border-white/20 flex items-center justify-center font-bold text-[10px]">01</div>
+                  <div className="w-7 h-7 rounded-full bg-white text-[#9dc093] flex items-center justify-center font-bold text-[10px]">01</div>
                   <p className="text-[11px] font-bold leading-tight">목록에서 본인 물건 확인</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-7 h-7 rounded-full border border-white/20 flex items-center justify-center font-bold text-[10px]">02</div>
+                  <div className="w-7 h-7 rounded-full bg-white text-[#9dc093] flex items-center justify-center font-bold text-[10px]">02</div>
                   <p className="text-[11px] font-bold leading-tight">보관 장소로 선생님 방문</p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-7 h-7 rounded-full bg-white text-[#e09ba9] flex items-center justify-center font-bold text-[10px] shrink-0">03</div>
+                  <div className="w-7 h-7 rounded-full bg-white text-[#9dc093] flex items-center justify-center font-bold text-[10px] shrink-0">03</div>
                   <div>
                     <p className="text-[11px] font-bold leading-tight">상세 특징 질문 답변</p>
-                    <p className="text-[9px] text-pink-100 mt-1 opacity-70 font-medium">"주인만 아는 세부 특징 설명"</p>
+                    <p className="text-[9px] text-green-50 mt-1 opacity-70 font-medium">"주인만 아는 세부 특징 설명"</p>
                   </div>
                 </div>
               </div>
@@ -165,7 +165,7 @@ export default function App() {
             </h4>
             <div className="space-y-3">
               <div className="flex gap-3 pr-2">
-                <div className="w-1 h-1 rounded-full bg-pink-400 mt-1.5 shrink-0 animate-pulse"></div>
+                <div className="w-1 h-1 rounded-full bg-green-400 mt-1.5 shrink-0 animate-pulse"></div>
                 <p className="text-[11px] text-slate-500 leading-normal font-medium">분실물 습득 시 즉시 등록 바랍니다.</p>
               </div>
             </div>
@@ -177,18 +177,18 @@ export default function App() {
           {/* Search & Filter */}
           <div className="flex flex-col md:flex-row gap-4 sm:gap-6 mb-8 sm:mb-12 items-center justify-between">
             <div className="relative w-full md:max-w-md group">
-              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-pink-400 transition-colors" size={18} />
+              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-green-500 transition-colors" size={18} />
               <input 
                 type="text" 
                 placeholder="물건 이름이나 보관 장소로 검색..."
-                className="w-full bg-white border border-slate-200/60 rounded-2xl py-4 pl-14 pr-6 focus:ring-4 focus:ring-pink-400/5 focus:border-pink-300 transition-all shadow-sm text-sm outline-none"
+                className="w-full bg-white border border-slate-200/60 rounded-2xl py-4 pl-14 pr-6 focus:ring-4 focus:ring-green-400/5 focus:border-green-300 transition-all shadow-sm text-sm outline-none"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
 
             <div className="flex items-center gap-6 text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-[0.2em] w-full md:w-auto px-2 justify-center">
-              <span className="text-pink-400 relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-pink-400">최신 등록순</span>
+              <span className="text-green-500 relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-green-500">최신 등록순</span>
               <span className="hover:text-slate-600 cursor-pointer transition-colors">보관 장소별</span>
             </div>
           </div>
@@ -217,8 +217,8 @@ export default function App() {
               <div className="text-slate-200 mb-6">
                 <PackageSearch size={64} strokeWidth={1} />
               </div>
-              <h3 className="text-lg font-bold text-slate-400">찾으시는 물건이 없네요</h3>
-              <p className="text-slate-300 text-xs mt-2 uppercase tracking-widest font-bold">평화로운 학교 캠퍼스</p>
+              <h3 className="text-lg font-bold text-slate-400">주인님을 기다리는 물건이 없어요</h3>
+              <p className="text-slate-300 text-xs mt-2 uppercase tracking-widest font-bold">All items returned or none found</p>
             </motion.div>
           )}
 
@@ -233,7 +233,7 @@ export default function App() {
             animate={{ scale: 1, opacity: 1 }}
             whileTap={{ scale: 0.9 }}
             onClick={handleUploadClick}
-            className="fixed bottom-20 right-6 lg:hidden w-14 h-14 bg-[#e09ba9] text-white rounded-full flex items-center justify-center shadow-2xl shadow-pink-300 z-30"
+            className="fixed bottom-20 right-6 lg:hidden w-14 h-14 bg-[#9dc093] text-white rounded-full flex items-center justify-center shadow-2xl shadow-green-300 z-30"
           >
             <PlusCircle size={28} />
           </motion.button>
@@ -241,14 +241,15 @@ export default function App() {
       </main>
 
       {/* Footer Bar */}
-      <footer className="h-12 bg-white border-t border-slate-200 px-6 md:px-10 flex items-center justify-between text-[10px] font-bold text-slate-400 uppercase tracking-widest shrink-0">
+      <footer className="h-16 bg-white border-t border-slate-200 px-6 md:px-10 flex flex-col sm:flex-row items-center justify-between py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest shrink-0 gap-2">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-          <span>Campus Integrity & Retrieval Office</span>
+          <span>School Integrity & Retrieval Office</span>
         </div>
-        <div className="hidden sm:flex gap-6">
-          <span>Status: Operating Normally</span>
-          <span className="text-blue-500">System Stable</span>
+        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6">
+          <span>Version 1.0.0 (2026) © INBIGO. All Rights Reserved.</span>
+          <span className="hidden sm:inline border-l border-slate-200 h-3"></span>
+          <span className="text-green-500">System Stable</span>
         </div>
       </footer>
 
