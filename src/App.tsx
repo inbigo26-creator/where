@@ -191,8 +191,8 @@ export default function App() {
             <Info size={18} className="shrink-0 mt-0.5 text-red-400" />
             <div className="space-y-1">
               <p className="text-sm font-bold leading-tight">자동 삭제 안내</p>
-              <p className="text-xs font-semibold leading-relaxed opacity-90">
-                등록 후 한 달(30일)이 지난 물건은 시스템에서 자동으로 삭제됩니다.
+              <p className="text-[11px] font-semibold leading-relaxed opacity-90">
+                등록 후 한 달(30일)이 지난 물건은<br />시스템에서 자동으로 삭제됩니다.
               </p>
             </div>
           </div>
