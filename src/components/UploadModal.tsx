@@ -15,7 +15,8 @@ export default function UploadModal({ isOpen, onClose, onUpload }: UploadModalPr
     dateFound: new Date().toISOString().split('T')[0],
     description: '',
     privateNote: '',
-    photoUrl: ''
+    photoUrl: '',
+    teacherName: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -23,6 +24,8 @@ export default function UploadModal({ isOpen, onClose, onUpload }: UploadModalPr
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isSubmitting) return;
+
+    // Additional safeguard for password here if needed, but user asked for it in the calling button
     
     setIsSubmitting(true);
     try {
@@ -33,7 +36,8 @@ export default function UploadModal({ isOpen, onClose, onUpload }: UploadModalPr
         dateFound: new Date().toISOString().split('T')[0],
         description: '',
         privateNote: '',
-        photoUrl: ''
+        photoUrl: '',
+        teacherName: ''
       });
       onClose();
     } catch (error) {
@@ -76,8 +80,8 @@ export default function UploadModal({ isOpen, onClose, onUpload }: UploadModalPr
             {/* Header */}
             <div className="bg-brand-bg p-6 border-b border-slate-100 flex justify-between items-center shrink-0">
               <div>
-                <h2 className="text-xl font-bold text-brand-text tracking-tight">새 물품 등록</h2>
-                <p className="text-brand-muted text-[10px] uppercase tracking-widest font-bold mt-1">Teacher Admin Module</p>
+                <h2 className="text-xl font-bold text-brand-text tracking-tight">분실물 등록</h2>
+                <p className="text-brand-muted text-[10px] uppercase tracking-widest font-bold mt-1">교사용 관리 시스템</p>
               </div>
               <button 
                 onClick={onClose}
@@ -91,14 +95,14 @@ export default function UploadModal({ isOpen, onClose, onUpload }: UploadModalPr
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Left Side: Image Preview & Upload */}
                 <div className="space-y-3">
-                  <label className="block text-[10px] font-bold text-brand-muted uppercase tracking-widest px-1">Item Image</label>
+                  <label className="block text-[10px] font-bold text-brand-muted uppercase tracking-widest px-1">물품 사진</label>
                   <div 
                     onClick={() => fileInputRef.current?.click()}
                     className="aspect-square bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center cursor-pointer hover:bg-brand-accent/30 transition-all overflow-hidden relative group"
                   >
                     {formData.photoUrl ? (
                       <>
-                        <img src={formData.photoUrl} alt="Preview" className="w-full h-full object-cover" />
+                        <img src={formData.photoUrl} alt="Preview" className="w-full h-full object-contain" />
                         <div className="absolute inset-0 bg-brand-text/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all">
                           <Camera className="text-white" size={32} />
                         </div>
@@ -123,7 +127,7 @@ export default function UploadModal({ isOpen, onClose, onUpload }: UploadModalPr
                 {/* Right Side: Basic Info */}
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-brand-muted uppercase tracking-widest mb-2 px-1">Item Name</label>
+                    <label className="block text-[10px] font-bold text-brand-muted uppercase tracking-widest mb-2 px-1">물건 이름</label>
                     <input
                       required
                       type="text"
@@ -136,7 +140,7 @@ export default function UploadModal({ isOpen, onClose, onUpload }: UploadModalPr
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] font-bold text-brand-muted uppercase tracking-widest mb-2 px-1">Date</label>
+                      <label className="block text-[10px] font-bold text-brand-muted uppercase tracking-widest mb-2 px-1">발견 날짜</label>
                       <input
                         required
                         type="date"
@@ -146,11 +150,11 @@ export default function UploadModal({ isOpen, onClose, onUpload }: UploadModalPr
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-bold text-brand-muted uppercase tracking-widest mb-2 px-1">Location</label>
+                      <label className="block text-[10px] font-bold text-brand-muted uppercase tracking-widest mb-2 px-1">수령 장소</label>
                       <input
                         required
                         type="text"
-                        placeholder="예: 3층 복도"
+                        placeholder="예: 교무실 2번 캐비닛"
                         className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary text-brand-text transition-all outline-none text-xs font-semibold"
                         value={formData.location}
                         onChange={e => setFormData({ ...formData, location: e.target.value })}
@@ -159,10 +163,21 @@ export default function UploadModal({ isOpen, onClose, onUpload }: UploadModalPr
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-brand-muted uppercase tracking-widest mb-2 px-1">Description</label>
+                    <label className="block text-[10px] font-bold text-brand-muted uppercase tracking-widest mb-2 px-1">담당 선생님 (선택)</label>
+                    <input
+                      type="text"
+                      placeholder="성함을 입력하세요"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary text-brand-text transition-all outline-none text-sm font-semibold"
+                      value={formData.teacherName}
+                      onChange={e => setFormData({ ...formData, teacherName: e.target.value })}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-bold text-brand-muted uppercase tracking-widest mb-2 px-1">물건 설명 (공개)</label>
                     <textarea
-                      rows={3}
-                      placeholder="공개될 간단한 설명을 입력하세요."
+                      rows={2}
+                      placeholder="학생들이 볼 수 있는 간단한 특징을 입력하세요."
                       className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary text-brand-text transition-all resize-none outline-none text-xs font-medium"
                       value={formData.description}
                       onChange={e => setFormData({ ...formData, description: e.target.value })}
@@ -171,15 +186,15 @@ export default function UploadModal({ isOpen, onClose, onUpload }: UploadModalPr
                 </div>
               </div>
 
-              <div className="bg-brand-text p-6 rounded-2xl shadow-inner relative overflow-hidden">
-                <label className="flex items-center gap-2 text-[10px] font-bold text-brand-secondary uppercase tracking-widest mb-3 relative z-10 italic">
-                  Verification Note (Teacher Only)
+              <div className="bg-slate-100 p-6 rounded-2xl border border-slate-200 relative overflow-hidden">
+                <label className="flex items-center gap-2 text-[10px] font-bold text-brand-primary uppercase tracking-widest mb-3 relative z-10 italic">
+                  본인 확인용 메모 (교사용 비공개)
                   <HelpCircle size={14} className="opacity-50" />
                 </label>
                 <textarea
                   rows={2}
-                  placeholder="주인 확인용 비공개 메모 (예: 지갑 속 현금 액수 등)"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl p-4 focus:ring-4 focus:ring-brand-primary/20 focus:border-brand-primary/40 text-white placeholder:text-white/20 transition-all resize-none outline-none text-xs font-medium relative z-10"
+                  placeholder="주인만 알 수 있는 상세 특징을 기록하세요. (예: 지갑 속 현금 액수 등)"
+                  className="w-full bg-white border border-slate-200 rounded-xl p-4 focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary text-brand-text placeholder:text-slate-300 transition-all resize-none outline-none text-xs font-medium relative z-10"
                   value={formData.privateNote}
                   onChange={e => setFormData({ ...formData, privateNote: e.target.value })}
                 />
@@ -194,7 +209,7 @@ export default function UploadModal({ isOpen, onClose, onUpload }: UploadModalPr
                 ) : (
                   <span className="flex items-center gap-2">
                     <Package size={18} />
-                    시스템에 분실물 등록
+                    시스템에 분실물 등록 완료
                   </span>
                 )}
               </button>

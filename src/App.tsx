@@ -72,17 +72,15 @@ export default function App() {
   };
 
   const handleUploadClick = () => {
-    if (isTeacherMode) {
-      setIsUploadOpen(true);
-    } else {
-      const password = prompt('물품을 등록하려면 선생님 비밀번호를 입력하세요.');
-      if (password === '1004') {
+    const password = prompt('물품을 등록하려면 선생님 비밀번호(1004)를 입력하세요.');
+    if (password === '1004') {
+      if (!isTeacherMode) {
         setIsTeacherMode(true);
         localStorage.setItem('isTeacherMode', 'true');
-        setIsUploadOpen(true);
-      } else if (password !== null) {
-        alert('비밀번호가 틀렸습니다.');
       }
+      setIsUploadOpen(true);
+    } else if (password !== null) {
+      alert('비밀번호가 틀렸습니다.');
     }
   };
 
@@ -138,7 +136,7 @@ export default function App() {
 
           <div className="p-6 bg-brand-accent/50 text-brand-text rounded-3xl relative overflow-hidden border border-brand-secondary/30">
             <div className="relative z-10">
-              <h3 className="text-[10px] uppercase tracking-[0.2em] text-brand-muted font-bold mb-5 italic">수령 가이드</h3>
+              <h3 className="text-[10px] uppercase tracking-[0.2em] text-brand-muted font-bold mb-5 italic">분실물 확인 방법</h3>
               <div className="space-y-5">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-white text-brand-primary flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">01</div>
@@ -162,13 +160,20 @@ export default function App() {
           <div className="p-5 bg-slate-50 rounded-2xl border border-slate-100 lg:mt-auto">
             <h4 className="text-[9px] font-bold text-brand-muted uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
               <Clock size={12} />
-              시스템 알림
+              최근 등록 물품 안내
             </h4>
             <div className="space-y-3">
-              <div className="flex gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-brand-primary mt-1.5 shrink-0 animate-pulse"></div>
-                <p className="text-xs text-brand-muted leading-relaxed">분실물 습득 시 즉시 등록 관리 바랍니다.</p>
-              </div>
+              {items.slice(0, 3).map((item) => (
+                <div key={item.id} className="flex gap-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-brand-primary mt-1.5 shrink-0"></div>
+                  <p className="text-xs text-brand-muted leading-relaxed font-medium">
+                    <span className="text-brand-text font-bold">{item.name}</span>({item.location})
+                  </p>
+                </div>
+              ))}
+              {items.length === 0 && (
+                <p className="text-[10px] text-brand-muted/60 italic">최근 등록된 물품이 없습니다.</p>
+              )}
             </div>
           </div>
         </aside>

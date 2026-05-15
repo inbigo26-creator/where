@@ -40,17 +40,15 @@ export default function Header({
         </div>
 
         <div className="flex items-center gap-4">
-          {isTeacher && (
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={onOpenUpload}
-              className="btn-primary flex items-center gap-2.5 text-sm px-6 py-3"
-            >
-              <PlusCircle size={18} />
-              <span className="hidden md:inline">물품 등록</span>
-            </motion.button>
-          )}
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={onOpenUpload}
+            className="btn-primary flex items-center gap-2.5 text-sm px-6 py-3"
+          >
+            <PlusCircle size={18} />
+            <span className="hidden md:inline">물품 등록</span>
+          </motion.button>
         </div>
       </div>
     </header>

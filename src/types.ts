@@ -17,6 +17,7 @@ export interface LostItem {
   dateFound: string;
   location: string;
   privateNote?: string;
+  teacherName?: string;
   status: ItemStatus;
   createdAt: string;
   updatedAt: string;

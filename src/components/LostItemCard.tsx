@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Calendar, Trash2, CheckCircle, Info, Lock, ImageOff, MapPin } from 'lucide-react';
+import { Calendar, Trash2, CheckCircle, Info, Lock, ImageOff, MapPin, User as UserIcon } from 'lucide-react';
 import { LostItem, UserRole } from '../types';
 import { lostItemsService } from '../services/lostItemsService';
 
@@ -41,20 +41,20 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
           <img 
             src={item.photoUrl} 
             alt={item.name} 
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+            className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" 
             referrerPolicy="no-referrer"
           />
         ) : (
           <div className="flex flex-col items-center justify-center text-slate-300 gap-2">
             <ImageOff size={32} strokeWidth={1} />
-            <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">No Visual</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">사진 없음</span>
           </div>
         )}
         
         {/* Status Badge */}
         <div className="absolute top-3 left-3">
           <span className="bg-white/90 backdrop-blur text-brand-text text-[9px] px-2.5 py-1 rounded-lg font-bold uppercase tracking-widest border border-slate-200 shadow-sm">
-            {item.status}
+            {item.status === 'available' ? '보관 중' : '수령 완료'}
           </span>
         </div>
       </div>
@@ -67,14 +67,34 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
             {isTeacher && (
               <div className="flex gap-2 ml-4">
                 <button 
-                  onClick={(e) => { e.stopPropagation(); onCollect(item.id); }}
+                  onClick={(e) => { 
+                    e.stopPropagation(); 
+                    const password = prompt('수령 완료 처리를 위해 선생님 비밀번호(1004)를 입력하세요.');
+                    if (password === '1004') {
+                      if (confirm('이 물품을 수령 완료 처리하시겠습니까?')) {
+                        onCollect(item.id);
+                      }
+                    } else if (password !== null) {
+                      alert('비밀번호가 틀렸습니다.');
+                    }
+                  }}
                   className="p-2 bg-brand-accent text-brand-primary rounded-lg hover:bg-brand-primary hover:text-white transition-all border border-brand-secondary/20"
                   title="수령 완료"
                 >
                   <CheckCircle size={18} />
                 </button>
                 <button 
-                  onClick={(e) => { e.stopPropagation(); onDelete(item.id); }}
+                  onClick={(e) => { 
+                    e.stopPropagation(); 
+                    const password = prompt('삭제를 위해 선생님 비밀번호(1004)를 입력하세요.');
+                    if (password === '1004') {
+                      if (confirm('정말 삭제하시겠습니까?')) {
+                        onDelete(item.id);
+                      }
+                    } else if (password !== null) {
+                      alert('비밀번호가 틀렸습니다.');
+                    }
+                  }}
                   className="p-2 bg-red-50 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all border border-red-100"
                   title="삭제"
                 >
@@ -93,6 +113,12 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
               <MapPin size={14} className="opacity-70" />
               <span>{item.location}</span>
             </div>
+            {item.teacherName && (
+              <div className="flex items-center gap-2 text-xs font-semibold text-brand-secondary">
+                <UserIcon size={14} className="opacity-70" />
+                <span>담당: {item.teacherName} 선생님</span>
+              </div>
+            )}
           </div>
           <p className="text-sm text-brand-muted mt-3 line-clamp-2 leading-relaxed">{item.description}</p>
         </div>
@@ -100,13 +126,13 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
         {/* Verification Note */}
         <div className="mt-5 pt-4 border-t border-slate-50">
           {isTeacher ? (
-            <div className="flex items-center gap-3 p-3 bg-brand-accent/30 rounded-xl">
+            <div className="flex items-center gap-3 p-3 bg-brand-primary/5 rounded-xl border border-brand-primary/10">
               <Lock size={14} className="text-brand-primary" />
               {loadingNote ? (
                 <div className="h-4 w-32 bg-white animate-pulse rounded"></div>
               ) : (
-                <span className="text-xs font-semibold text-brand-text italic">
-                  확인용: {privateNote || '내용 없음'}
+                <span className="text-xs font-semibold text-brand-primary italic">
+                  본인 확인용: {privateNote || '내용 없음'}
                 </span>
               )}
             </div>
