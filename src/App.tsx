@@ -74,7 +74,6 @@ export default function App() {
         onConfirm: () => {
           setIsTeacherMode(true);
           localStorage.setItem('isTeacherMode', 'true');
-          alert('선생님 모드가 활성화되었습니다.');
           setPassModal(null);
         }
       });
@@ -82,14 +81,17 @@ export default function App() {
   };
 
   const handleUploadClick = () => {
+    if (isTeacherMode) {
+      setIsUploadOpen(true);
+      return;
+    }
+
     setPassModal({
       isOpen: true,
       title: '물품 등록 권한 확인',
       onConfirm: () => {
-        if (!isTeacherMode) {
-          setIsTeacherMode(true);
-          localStorage.setItem('isTeacherMode', 'true');
-        }
+        setIsTeacherMode(true);
+        localStorage.setItem('isTeacherMode', 'true');
         setIsUploadOpen(true);
         setPassModal(null);
       }
@@ -186,10 +188,10 @@ export default function App() {
           </div>
 
           <div className="p-5 bg-red-50 text-red-700 rounded-2xl border border-red-100 flex items-start gap-3">
-            <Info size={16} className="shrink-0 mt-0.5 text-red-400" />
+            <Info size={18} className="shrink-0 mt-0.5 text-red-400" />
             <div className="space-y-1">
-              <p className="text-xs font-bold leading-tight">자동 삭제 안내</p>
-              <p className="text-[10px] font-medium leading-relaxed opacity-80">
+              <p className="text-sm font-bold leading-tight">자동 삭제 안내</p>
+              <p className="text-xs font-semibold leading-relaxed opacity-90">
                 등록 후 한 달(30일)이 지난 물건은 시스템에서 자동으로 삭제됩니다.
               </p>
             </div>

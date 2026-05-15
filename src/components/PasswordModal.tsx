@@ -109,8 +109,6 @@ export default function PasswordModal({ isOpen, onClose, onConfirm, title }: Pas
                   </div>
                 ))}
               </div>
-              
-              <p className="text-[10px] text-slate-400 font-medium">화면의 빈칸을 누르면 키보드가 나타납니다</p>
             </div>
           </motion.div>
         </div>

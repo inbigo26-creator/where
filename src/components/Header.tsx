@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { PackageSearch, PlusCircle } from 'lucide-react';
+import { PackageSearch, PlusCircle, LayoutDashboard } from 'lucide-react';
 import { UserRole } from '../types';
 
 interface HeaderProps {
@@ -42,12 +42,12 @@ export default function Header({
             onClick={onToggleTeacher}
             className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-bold text-xs transition-all ${
               isTeacher 
-                ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/20' 
+                ? 'bg-slate-100 text-slate-500 hover:bg-slate-200' 
                 : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
             }`}
           >
-            <PackageSearch size={18} />
-            <span>{isTeacher ? '선생님 로그아웃' : '선생님 로그인'}</span>
+            {isTeacher ? <LayoutDashboard size={18} /> : <PackageSearch size={18} />}
+            <span>{isTeacher ? '전체 분실물 보기' : '선생님 로그인'}</span>
           </motion.button>
 
           {isTeacher && (
