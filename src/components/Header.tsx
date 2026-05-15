@@ -27,15 +27,15 @@ export default function Header({
         </div>
         <div>
           <h1 className="text-xl font-bold text-brand-text tracking-tight leading-none mb-1">주인님 어디 계세요</h1>
-          <p className="text-[10px] font-bold text-brand-muted uppercase tracking-[0.2em]">교내 분실물 통합 관리 시스템</p>
+          <p className="text-[10px] font-bold text-brand-muted uppercase tracking-[0.2em]">인비고 분실물 통합 관리 시스템</p>
         </div>
       </div>
 
       <div className="flex items-center gap-6">
-        <div className="hidden sm:flex bg-brand-accent/30 border border-brand-secondary/20 rounded-2xl px-5 py-2.5 items-center gap-6">
-          <span className="text-brand-muted font-semibold text-xs">현재 보관 물품</span>
-          <span className="text-2xl font-bold text-brand-primary tabular-nums leading-none">
-            {itemCount}<span className="text-[10px] ml-1 font-bold uppercase">건</span>
+        <div className="hidden sm:flex bg-brand-accent/40 border border-brand-secondary/30 rounded-2xl px-6 py-3 items-center gap-8">
+          <span className="text-brand-text font-bold text-sm tracking-tight">현재 보관 물품</span>
+          <span className="text-3xl font-extrabold text-brand-primary tabular-nums leading-none">
+            {itemCount}<span className="text-xs ml-1 font-bold uppercase tracking-widest">건</span>
           </span>
         </div>
 

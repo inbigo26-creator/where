@@ -92,6 +92,7 @@ export default function App() {
   };
 
   const handleScrollToList = () => {
+    setSearchQuery('');
     listRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -228,13 +229,13 @@ export default function App() {
             <div className="flex items-center bg-slate-100 p-1 rounded-xl w-full md:w-auto">
               <button 
                 onClick={() => setSortBy('latest')}
-                className={`flex-1 md:flex-none px-6 py-2.5 rounded-lg text-xs font-bold transition-all ${sortBy === 'latest' ? 'bg-white text-brand-primary shadow-sm' : 'text-brand-muted hover:text-brand-text'}`}
+                className={`flex-1 md:flex-none px-6 py-2.5 rounded-lg text-xs font-bold ${sortBy === 'latest' ? 'bg-white text-brand-primary shadow-sm' : 'text-brand-muted hover:text-brand-text'}`}
               >
                 최신 등록순
               </button>
               <button 
                 onClick={() => setSortBy('name')}
-                className={`flex-1 md:flex-none px-6 py-2.5 rounded-lg text-xs font-bold transition-all ${sortBy === 'name' ? 'bg-white text-brand-primary shadow-sm' : 'text-brand-muted hover:text-brand-text'}`}
+                className={`flex-1 md:flex-none px-6 py-2.5 rounded-lg text-xs font-bold ${sortBy === 'name' ? 'bg-white text-brand-primary shadow-sm' : 'text-brand-muted hover:text-brand-text'}`}
               >
                 이름순
               </button>
