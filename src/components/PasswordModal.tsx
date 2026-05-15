@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Lock, X } from 'lucide-react';
 
@@ -12,36 +12,36 @@ interface PasswordModalProps {
 export default function PasswordModal({ isOpen, onClose, onConfirm, title }: PasswordModalProps) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (isOpen) {
       setPassword('');
       setError(false);
+      // Small delay to ensure focus works on mobile
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
     }
   }, [isOpen]);
 
-  const handleCharClick = (char: string) => {
-    if (password.length < 4) {
-      const newPassword = password + char;
-      setPassword(newPassword);
-      if (newPassword.length === 4) {
-        if (newPassword === '1004') {
-          onConfirm(newPassword);
-          onClose();
-        } else {
-          setError(true);
-          setTimeout(() => {
-            setPassword('');
-            setError(false);
-          }, 600);
-        }
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value.replace(/\D/g, '').slice(0, 4);
+    setPassword(val);
+    
+    if (val.length === 4) {
+      if (val === '1004') {
+        onConfirm(val);
+        onClose();
+      } else {
+        setError(true);
+        setTimeout(() => {
+          setPassword('');
+          setError(false);
+          inputRef.current?.focus();
+        }, 600);
       }
     }
-  };
-
-  const handleBackspace = () => {
-    setPassword(password.slice(0, -1));
-    setError(false);
   };
 
   return (
@@ -78,8 +78,22 @@ export default function PasswordModal({ isOpen, onClose, onConfirm, title }: Pas
               <h3 className="text-xl font-bold text-brand-text mb-2 px-4 leading-tight">{title}</h3>
               <p className="text-xs font-bold text-brand-muted uppercase tracking-widest mb-8">선생님 비밀번호 4자리를 입력하세요</p>
 
+              {/* Hidden Input for Keyboard */}
+              <input
+                ref={inputRef}
+                type="text"
+                pattern="[0-9]*"
+                inputMode="numeric"
+                value={password}
+                onChange={handleChange}
+                className="absolute opacity-0 pointer-events-none"
+              />
+
               {/* Password Display */}
-              <div className={`flex gap-4 mb-10 ${error ? 'animate-shake' : ''}`}>
+              <div 
+                onClick={() => inputRef.current?.focus()}
+                className={`flex gap-4 mb-4 cursor-text ${error ? 'animate-shake' : ''}`}
+              >
                 {[0, 1, 2, 3].map((i) => (
                   <div 
                     key={i}
@@ -95,32 +109,8 @@ export default function PasswordModal({ isOpen, onClose, onConfirm, title }: Pas
                   </div>
                 ))}
               </div>
-
-              {/* Pad */}
-              <div className="grid grid-cols-3 gap-4 w-full">
-                {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((num) => (
-                  <button
-                    key={num}
-                    onClick={() => handleCharClick(num)}
-                    className="h-16 flex items-center justify-center bg-slate-50 rounded-2xl text-xl font-bold text-brand-text hover:bg-brand-accent hover:text-brand-primary active:scale-95 transition-all"
-                  >
-                    {num}
-                  </button>
-                ))}
-                <div className="h-16" />
-                <button
-                  onClick={() => handleCharClick('0')}
-                  className="h-16 flex items-center justify-center bg-slate-50 rounded-2xl text-xl font-bold text-brand-text hover:bg-brand-accent hover:text-brand-primary active:scale-95 transition-all"
-                >
-                  0
-                </button>
-                <button
-                  onClick={handleBackspace}
-                  className="h-16 flex items-center justify-center bg-slate-50 rounded-2xl text-sm font-bold text-slate-400 hover:bg-red-50 hover:text-red-500 active:scale-95 transition-all"
-                >
-                  CLR
-                </button>
-              </div>
+              
+              <p className="text-[10px] text-slate-400 font-medium">화면의 빈칸을 누르면 키보드가 나타납니다</p>
             </div>
           </motion.div>
         </div>

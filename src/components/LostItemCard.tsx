@@ -145,7 +145,14 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
                   <button 
                     onClick={(e) => {
                       e.stopPropagation();
-                      setShowPrivateNote(true);
+                      setPassModal({
+                        isOpen: true,
+                        title: '본인 확인 메모 확인',
+                        onConfirm: () => {
+                          setShowPrivateNote(true);
+                          setPassModal(null);
+                        }
+                      });
                     }}
                     className="flex items-center gap-2 px-4 py-2 bg-brand-primary/5 text-brand-primary hover:bg-brand-primary/10 rounded-xl border border-brand-primary/10 text-xs font-bold transition-all"
                   >
