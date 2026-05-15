@@ -14,7 +14,6 @@ export default function UploadModal({ isOpen, onClose, onUpload }: UploadModalPr
     location: '',
     dateFound: new Date().toISOString().split('T')[0],
     description: '',
-    privateNote: '',
     photoUrl: '',
     teacherName: ''
   });
@@ -35,7 +34,6 @@ export default function UploadModal({ isOpen, onClose, onUpload }: UploadModalPr
         location: '',
         dateFound: new Date().toISOString().split('T')[0],
         description: '',
-        privateNote: '',
         photoUrl: '',
         teacherName: ''
       });
@@ -215,18 +213,12 @@ export default function UploadModal({ isOpen, onClose, onUpload }: UploadModalPr
                 </div>
               </div>
 
-              <div className="bg-brand-primary/5 p-6 rounded-2xl border border-brand-primary/20 relative overflow-hidden">
-                <label className="flex items-center gap-2 text-sm font-bold text-brand-primary uppercase tracking-widest mb-3 relative z-10">
-                  본인 확인용 메모 (비공개) (선택)
-                  <HelpCircle size={16} className="opacity-70" />
-                </label>
-                <textarea
-                  rows={2}
-                  placeholder="주인만 알 수 있는 상세 특징을 기록하세요. (예: 지갑 속 현금 액수, 분실 장소 등)"
-                  className="w-full bg-white border border-brand-primary/30 rounded-xl p-4 focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary text-brand-text placeholder:text-slate-400 font-bold transition-all resize-none outline-none text-sm relative z-10"
-                  value={formData.privateNote}
-                  onChange={e => setFormData({ ...formData, privateNote: e.target.value })}
-                />
+              <div className="bg-brand-accent/30 p-6 rounded-2xl border border-brand-secondary/30 flex items-start gap-4">
+                <HelpCircle size={20} className="text-brand-primary shrink-0 mt-1" />
+                <p className="text-sm font-semibold text-brand-text leading-relaxed">
+                  <span className="text-brand-primary font-bold block mb-1">선생님 안내</span>
+                  물건을 찾으러 오는 학생에게 습득 장소나 물건의 특징 등 주인을 확인할 수 있는 질문을 해주세요.
+                </p>
               </div>
 
               <button

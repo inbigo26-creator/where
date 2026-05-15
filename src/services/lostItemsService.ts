@@ -88,50 +88,46 @@ export const lostItemsService = {
   },
 
   // Create new item
-  createItem: async (itemData: Omit<LostItem, 'id' | 'createdAt' | 'updatedAt' | 'creatorId' | 'status'>) => {
-    const { privateNote, ...publicData } = itemData;
-
+  createItem: async (itemData: Omit<LostItem, 'id' | 'createdAt' | 'updatedAt' | 'creatorId' | 'status' | 'privateNote'>) => {
     try {
-      const docRef = await addDoc(collection(db, COLLECTION_NAME), {
-        ...publicData,
+      await addDoc(collection(db, COLLECTION_NAME), {
+        ...itemData,
         status: ItemStatus.AVAILABLE,
         creatorId: 'teacher',
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
       });
-
-      if (privateNote) {
-        await setDoc(doc(db, COLLECTION_NAME, docRef.id, 'private', 'note'), {
-          content: privateNote,
-          updatedAt: serverTimestamp(),
-        });
-      }
     } catch (error) {
       handleFirestoreError(error, OperationType.CREATE, COLLECTION_NAME);
     }
   },
 
-  // Get private note for an item (Teachers only)
-  getPrivateNote: async (itemId: string) => {
+  // Mark as collected (User requested actual deletion from DB)
+  collectItem: async (itemId: string) => {
     try {
-      const noteRef = doc(db, COLLECTION_NAME, itemId, 'private', 'note');
-      const noteSnap = await getDoc(noteRef);
-      return noteSnap.exists() ? noteSnap.data().content : null;
+      await deleteDoc(doc(db, COLLECTION_NAME, itemId));
     } catch (error) {
-      handleFirestoreError(error, OperationType.GET, `${COLLECTION_NAME}/${itemId}/private/note`);
+      handleFirestoreError(error, OperationType.DELETE, `${COLLECTION_NAME}/${itemId}`);
     }
   },
 
-  // Mark as collected (deletes or updates status)
-  collectItem: async (itemId: string) => {
+  // Cleanup items older than 30 days
+  cleanupOldItems: async () => {
     try {
-      const itemRef = doc(db, COLLECTION_NAME, itemId);
-      await updateDoc(itemRef, {
-        status: ItemStatus.COLLECTED,
-        updatedAt: serverTimestamp(),
-      });
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      
+      const q = query(collection(db, COLLECTION_NAME), where('createdAt', '<=', thirtyDaysAgo));
+      const snapshot = await getDocs(q);
+      
+      const deletePromises = snapshot.docs.map(document => deleteDoc(doc(db, COLLECTION_NAME, document.id)));
+      await Promise.all(deletePromises);
+      
+      if (snapshot.size > 0) {
+        console.log(`Cleaned up ${snapshot.size} expired items.`);
+      }
     } catch (error) {
-      handleFirestoreError(error, OperationType.UPDATE, `${COLLECTION_NAME}/${itemId}`);
+      console.error('Cleanup failed:', error);
     }
   },
 

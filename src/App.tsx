@@ -14,7 +14,8 @@ import {
   ChevronDown,
   User as UserIcon,
   HelpCircle,
-  PlusCircle
+  PlusCircle,
+  Info
 } from 'lucide-react';
 import Header from './components/Header';
 import LostItemCard from './components/LostItemCard';
@@ -52,6 +53,9 @@ export default function App() {
     const unsubscribeItems = lostItemsService.subscribeToItems((items) => {
       setItems(items.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()));
     });
+
+    // 4. Cleanup old items (30 days policy)
+    lostItemsService.cleanupOldItems();
 
     return () => {
       unsubscribeCount();
@@ -173,11 +177,21 @@ export default function App() {
                 <div className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-full bg-white text-brand-primary flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">03</div>
                   <div>
-                    <p className="text-sm font-medium leading-tight">상세 특징 질문 답변</p>
-                    <p className="text-[11px] text-brand-muted mt-1 font-medium italic">"주인만 아는 특징 설명"</p>
+                    <p className="text-sm font-medium leading-tight">주인 확인 질문 답변</p>
+                    <p className="text-[11px] text-brand-muted mt-1 font-medium italic">"습득 장소 등 특징 설명"</p>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div className="p-5 bg-red-50 text-red-700 rounded-2xl border border-red-100 flex items-start gap-3">
+            <Info size={16} className="shrink-0 mt-0.5 text-red-400" />
+            <div className="space-y-1">
+              <p className="text-xs font-bold leading-tight">자동 삭제 안내</p>
+              <p className="text-[10px] font-medium leading-relaxed opacity-80">
+                등록 후 한 달(30일)이 지난 물건은 시스템에서 자동으로 삭제됩니다.
+              </p>
             </div>
           </div>
 

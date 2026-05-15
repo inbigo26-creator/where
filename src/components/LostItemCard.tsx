@@ -15,21 +15,8 @@ interface LostItemCardProps {
 
 export default function LostItemCard({ item, userRole, onCollect, onDelete }: LostItemCardProps) {
   const isTeacher = userRole === UserRole.TEACHER;
-  const [privateNote, setPrivateNote] = useState<string | null>(null);
-  const [loadingNote, setLoadingNote] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [passModal, setPassModal] = useState<{ isOpen: boolean; title: string; onConfirm: () => void } | null>(null);
-  const [showPrivateNote, setShowPrivateNote] = useState(false);
-
-  useEffect(() => {
-    if (isTeacher && showPrivateNote) {
-      setLoadingNote(true);
-      lostItemsService.getPrivateNote(item.id).then(note => {
-        setPrivateNote(note);
-        setLoadingNote(false);
-      });
-    }
-  }, [item.id, isTeacher, showPrivateNote]);
 
   return (
     <>
@@ -137,45 +124,19 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
             <p className="text-sm text-brand-muted mt-3 line-clamp-2 leading-relaxed">{item.description}</p>
           </div>
 
-          {/* Verification Note */}
+          {/* Footer Info */}
           <div className="mt-5 pt-4 border-t border-slate-50">
             {isTeacher ? (
-              <div className="flex items-center gap-3">
-                {!showPrivateNote ? (
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setPassModal({
-                        isOpen: true,
-                        title: '본인 확인 메모 확인',
-                        onConfirm: () => {
-                          setShowPrivateNote(true);
-                          setPassModal(null);
-                        }
-                      });
-                    }}
-                    className="flex items-center gap-2 px-4 py-2 bg-brand-primary/5 text-brand-primary hover:bg-brand-primary/10 rounded-xl border border-brand-primary/10 text-xs font-bold transition-all"
-                  >
-                    <Eye size={14} />
-                    본인 확인용 메모 보기
-                  </button>
-                ) : (
-                  <div className="flex items-center gap-3 p-3 bg-brand-primary/5 rounded-xl border border-brand-primary/10 w-full animate-in fade-in slide-in-from-left-2 transition-all">
-                    <Lock size={14} className="text-brand-primary shrink-0" />
-                    {loadingNote ? (
-                      <div className="h-4 w-32 bg-white animate-pulse rounded"></div>
-                    ) : (
-                      <span className="text-sm font-bold text-brand-primary">
-                        본인 확인용: {privateNote || '내용 없음'}
-                      </span>
-                    )}
-                  </div>
-                )}
+              <div className="flex items-start gap-3 p-3 bg-brand-accent/40 rounded-xl border border-brand-secondary/20">
+                <Info size={16} className="text-brand-primary shrink-0 mt-0.5" />
+                <p className="text-[11px] font-bold text-brand-text leading-relaxed">
+                  물건을 찾으러 오는 학생에게 습득 장소나 물건의 특징 등 주인을 확인할 수 있는 질문을 해주세요.
+                </p>
               </div>
             ) : (
               <div className="flex items-center gap-3 text-[11px] font-bold text-brand-muted uppercase tracking-wider">
                 <Info size={16} className="text-brand-secondary shrink-0" />
-                <p>교무실 방문 시 상세 특징 답변 필요</p>
+                <p>물건 수령 시 상세 특징 확인 절차가 있습니다.</p>
               </div>
             )}
           </div>
