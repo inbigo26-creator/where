@@ -27,7 +27,7 @@ export default function Header({
         </div>
         <div>
           <h1 className="text-xl font-bold text-brand-text tracking-tight leading-none mb-1">주인님 어디 계세요</h1>
-          <p className="text-[10px] font-bold text-brand-muted uppercase tracking-[0.2em]">인비고 분실물 통합 관리 시스템</p>
+          <p className="text-[11px] font-bold text-brand-muted uppercase tracking-[0.1em]">인비고 분실물 통합 관리 시스템</p>
         </div>
       </div>
 

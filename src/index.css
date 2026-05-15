@@ -10,6 +10,18 @@
   --color-brand-accent: #E9F0E6;
   --color-brand-text: #2D3A2D;
   --color-brand-muted: #6B7A6B;
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+}
+
+@layer utilities {
+  .animate-shake {
+    animation: shake 0.2s ease-in-out infinite;
+  }
 }
 
 @layer base {

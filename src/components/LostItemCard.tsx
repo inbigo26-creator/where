@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Calendar, Trash2, CheckCircle, Info, Lock, ImageOff, MapPin, User as UserIcon, X, ZoomIn } from 'lucide-react';
+import { Calendar, Trash2, CheckCircle, Info, Lock, ImageOff, MapPin, User as UserIcon, X, ZoomIn, Eye } from 'lucide-react';
 import { LostItem, UserRole } from '../types';
 import { lostItemsService } from '../services/lostItemsService';
+import PasswordModal from './PasswordModal';
 
 interface LostItemCardProps {
   key?: string;
@@ -17,16 +18,18 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
   const [privateNote, setPrivateNote] = useState<string | null>(null);
   const [loadingNote, setLoadingNote] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [passModal, setPassModal] = useState<{ isOpen: boolean; title: string; onConfirm: () => void } | null>(null);
+  const [showPrivateNote, setShowPrivateNote] = useState(false);
 
   useEffect(() => {
-    if (isTeacher) {
+    if (isTeacher && showPrivateNote) {
       setLoadingNote(true);
       lostItemsService.getPrivateNote(item.id).then(note => {
         setPrivateNote(note);
         setLoadingNote(false);
       });
     }
-  }, [item.id, isTeacher]);
+  }, [item.id, isTeacher, showPrivateNote]);
 
   return (
     <>
@@ -76,14 +79,16 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
                   <button 
                     onClick={(e) => { 
                       e.stopPropagation(); 
-                      const password = prompt('수령 완료 처리를 위해 선생님 비밀번호를 입력하세요.');
-                      if (password === '1004') {
-                        if (confirm('이 물품을 수령 완료 처리하시겠습니까?')) {
-                          onCollect(item.id);
+                      setPassModal({
+                        isOpen: true,
+                        title: '수령 완료 처리',
+                        onConfirm: () => {
+                          if (confirm('이 물품을 수령 완료 처리하시겠습니까?')) {
+                            onCollect(item.id);
+                          }
+                          setPassModal(null);
                         }
-                      } else if (password !== null) {
-                        alert('비밀번호가 틀렸습니다.');
-                      }
+                      });
                     }}
                     className="p-2 bg-brand-accent text-brand-primary rounded-lg hover:bg-brand-primary hover:text-white transition-all border border-brand-secondary/20"
                     title="수령 완료"
@@ -93,14 +98,16 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
                   <button 
                     onClick={(e) => { 
                       e.stopPropagation(); 
-                      const password = prompt('삭제를 위해 선생님 비밀번호를 입력하세요.');
-                      if (password === '1004') {
-                        if (confirm('정말 삭제하시겠습니까?')) {
-                          onDelete(item.id);
+                      setPassModal({
+                        isOpen: true,
+                        title: '물품 삭제',
+                        onConfirm: () => {
+                          if (confirm('정말 삭제하시겠습니까?')) {
+                            onDelete(item.id);
+                          }
+                          setPassModal(null);
                         }
-                      } else if (password !== null) {
-                        alert('비밀번호가 틀렸습니다.');
-                      }
+                      });
                     }}
                     className="p-2 bg-red-50 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all border border-red-100"
                     title="삭제"
@@ -133,14 +140,29 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
           {/* Verification Note */}
           <div className="mt-5 pt-4 border-t border-slate-50">
             {isTeacher ? (
-              <div className="flex items-center gap-3 p-3 bg-brand-primary/5 rounded-xl border border-brand-primary/10">
-                <Lock size={14} className="text-brand-primary" />
-                {loadingNote ? (
-                  <div className="h-4 w-32 bg-white animate-pulse rounded"></div>
+              <div className="flex items-center gap-3">
+                {!showPrivateNote ? (
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowPrivateNote(true);
+                    }}
+                    className="flex items-center gap-2 px-4 py-2 bg-brand-primary/5 text-brand-primary hover:bg-brand-primary/10 rounded-xl border border-brand-primary/10 text-xs font-bold transition-all"
+                  >
+                    <Eye size={14} />
+                    본인 확인용 메모 보기
+                  </button>
                 ) : (
-                  <span className="text-sm font-bold text-brand-primary">
-                    본인 확인용: {privateNote || '내용 없음'}
-                  </span>
+                  <div className="flex items-center gap-3 p-3 bg-brand-primary/5 rounded-xl border border-brand-primary/10 w-full animate-in fade-in slide-in-from-left-2 transition-all">
+                    <Lock size={14} className="text-brand-primary shrink-0" />
+                    {loadingNote ? (
+                      <div className="h-4 w-32 bg-white animate-pulse rounded"></div>
+                    ) : (
+                      <span className="text-sm font-bold text-brand-primary">
+                        본인 확인용: {privateNote || '내용 없음'}
+                      </span>
+                    )}
+                  </div>
                 )}
               </div>
             ) : (
@@ -190,6 +212,15 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
           </div>
         )}
       </AnimatePresence>
+
+      {passModal && (
+        <PasswordModal
+          isOpen={passModal.isOpen}
+          onClose={() => setPassModal(null)}
+          onConfirm={passModal.onConfirm}
+          title={passModal.title}
+        />
+      )}
     </>
   );
 }

@@ -19,6 +19,7 @@ import {
 import Header from './components/Header';
 import LostItemCard from './components/LostItemCard';
 import UploadModal from './components/UploadModal';
+import PasswordModal from './components/PasswordModal';
 import { authService } from './services/authService';
 import { lostItemsService } from './services/lostItemsService';
 import { LostItem, UserProfile, UserRole } from './types';
@@ -31,6 +32,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<'latest' | 'name'>('latest');
   const [isLoading, setIsLoading] = useState(true);
+  const [passModal, setPassModal] = useState<{ isOpen: boolean; title: string; onConfirm: () => void } | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -62,28 +64,32 @@ export default function App() {
       setIsTeacherMode(false);
       localStorage.setItem('isTeacherMode', 'false');
     } else {
-      const password = prompt('관리자(선생님) 비밀번호를 입력하세요.');
-      if (password === '1004') {
-        setIsTeacherMode(true);
-        localStorage.setItem('isTeacherMode', 'true');
-        alert('선생님 모드가 활성화되었습니다.');
-      } else if (password !== null) {
-        alert('비밀번호가 틀렸습니다.');
-      }
+      setPassModal({
+        isOpen: true,
+        title: '관리자 모드 전환',
+        onConfirm: () => {
+          setIsTeacherMode(true);
+          localStorage.setItem('isTeacherMode', 'true');
+          alert('선생님 모드가 활성화되었습니다.');
+          setPassModal(null);
+        }
+      });
     }
   };
 
   const handleUploadClick = () => {
-    const password = prompt('물품을 등록하려면 선생님 비밀번호를 입력하세요.');
-    if (password === '1004') {
-      if (!isTeacherMode) {
-        setIsTeacherMode(true);
-        localStorage.setItem('isTeacherMode', 'true');
+    setPassModal({
+      isOpen: true,
+      title: '물품 등록 권한 확인',
+      onConfirm: () => {
+        if (!isTeacherMode) {
+          setIsTeacherMode(true);
+          localStorage.setItem('isTeacherMode', 'true');
+        }
+        setIsUploadOpen(true);
+        setPassModal(null);
       }
-      setIsUploadOpen(true);
-    } else if (password !== null) {
-      alert('비밀번호가 틀렸습니다.');
-    }
+    });
   };
 
   const handleUpload = async (data: any) => {
@@ -154,7 +160,7 @@ export default function App() {
 
           <div className="p-6 bg-brand-accent/50 text-brand-text rounded-3xl relative overflow-hidden border border-brand-secondary/30">
             <div className="relative z-10">
-              <h3 className="text-xs uppercase tracking-[0.2em] text-brand-text font-bold mb-5">분실물 확인 방법</h3>
+              <h3 className="text-xs uppercase tracking-[0.05em] text-brand-text font-bold mb-5">분실물 확인 방법</h3>
               <div className="space-y-5">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-white text-brand-primary flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">01</div>
@@ -176,7 +182,7 @@ export default function App() {
           </div>
 
           <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 lg:mt-auto">
-            <h4 className="text-sm font-bold text-brand-text uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+            <h4 className="text-sm font-bold text-brand-text uppercase tracking-[0.05em] mb-4 flex items-center gap-2">
               <Clock size={16} />
               최근 등록 물품 안내
             </h4>
@@ -308,6 +314,15 @@ export default function App() {
         onClose={() => setIsUploadOpen(false)}
         onUpload={handleUpload}
       />
+      
+      {passModal && (
+        <PasswordModal
+          isOpen={passModal.isOpen}
+          onClose={() => setPassModal(null)}
+          onConfirm={passModal.onConfirm}
+          title={passModal.title}
+        />
+      )}
     </div>
   );
 }
