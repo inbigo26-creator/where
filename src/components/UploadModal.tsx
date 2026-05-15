@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Camera, MapPin, Calendar, Info, Package, Image as ImageIcon } from 'lucide-react';
+import { X, Camera, MapPin, Calendar, Info, Package, Image as ImageIcon, HelpCircle } from 'lucide-react';
 
 interface UploadModalProps {
   isOpen: boolean;

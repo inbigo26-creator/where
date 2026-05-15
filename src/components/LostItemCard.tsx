@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Calendar, Trash2, CheckCircle, Info, Lock, ImageOff } from 'lucide-react';
+import { Calendar, Trash2, CheckCircle, Info, Lock, ImageOff, MapPin } from 'lucide-react';
 import { LostItem, UserRole } from '../types';
 import { lostItemsService } from '../services/lostItemsService';
 

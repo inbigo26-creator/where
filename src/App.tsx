@@ -119,7 +119,7 @@ export default function App() {
           <div>
             <div className="mb-4 text-[10px] font-bold text-brand-muted uppercase tracking-[0.2em] px-2 flex items-center gap-2">
               <div className="w-1 h-3 bg-brand-primary rounded-full"></div>
-              NAVIGATION
+              메뉴
             </div>
             <div className="space-y-3">
               <button className="flex items-center gap-3 w-full p-4 bg-brand-primary text-white rounded-xl font-semibold text-sm transition-all shadow-lg shadow-brand-primary/20">
@@ -138,7 +138,7 @@ export default function App() {
 
           <div className="p-6 bg-brand-accent/50 text-brand-text rounded-3xl relative overflow-hidden border border-brand-secondary/30">
             <div className="relative z-10">
-              <h3 className="text-[10px] uppercase tracking-[0.2em] text-brand-muted font-bold mb-5 italic">Retrieval Guide</h3>
+              <h3 className="text-[10px] uppercase tracking-[0.2em] text-brand-muted font-bold mb-5 italic">수령 가이드</h3>
               <div className="space-y-5">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-white text-brand-primary flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">01</div>
@@ -162,7 +162,7 @@ export default function App() {
           <div className="p-5 bg-slate-50 rounded-2xl border border-slate-100 lg:mt-auto">
             <h4 className="text-[9px] font-bold text-brand-muted uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
               <Clock size={12} />
-              SYSTEM ALERT
+              시스템 알림
             </h4>
             <div className="space-y-3">
               <div className="flex gap-3">
@@ -189,8 +189,8 @@ export default function App() {
             </div>
 
             <div className="flex items-center gap-8 text-[11px] font-bold text-brand-muted uppercase tracking-[0.2em] w-full md:w-auto px-2 justify-center">
-              <span className="text-brand-primary relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-brand-primary">LATEST LOGS</span>
-              <span className="hover:text-brand-text cursor-pointer transition-colors">BY LOCATION</span>
+              <span className="text-brand-primary relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-brand-primary">최신 등록순</span>
+              <span className="hover:text-brand-text cursor-pointer transition-colors">보관 장소별</span>
             </div>
           </div>
 
