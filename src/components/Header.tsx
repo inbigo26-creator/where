@@ -36,6 +36,20 @@ export default function Header({
         </div>
 
         <div className="flex items-center gap-3">
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={onToggleTeacher}
+            className={`flex items-center justify-center gap-2 w-36 py-3 rounded-2xl font-bold text-xs transition-all ${
+              isTeacher 
+                ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/20' 
+                : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
+            }`}
+          >
+            {isTeacher ? <LogOut size={18} /> : <LogIn size={18} />}
+            <span>{isTeacher ? '선생님 로그아웃' : '선생님 로그인'}</span>
+          </motion.button>
+
           {isTeacher && (
             <motion.button
               initial={{ opacity: 0, x: -20 }}
@@ -49,20 +63,6 @@ export default function Header({
               <span className="hidden md:inline">물품 등록</span>
             </motion.button>
           )}
-
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={onToggleTeacher}
-            className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-bold text-xs transition-all ${
-              isTeacher 
-                ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/20' 
-                : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
-            }`}
-          >
-            {isTeacher ? <LogOut size={18} /> : <LogIn size={18} />}
-            <span>{isTeacher ? '선생님 로그아웃' : '선생님 로그인'}</span>
-          </motion.button>
         </div>
       </div>
     </header>
