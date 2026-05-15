@@ -261,6 +261,21 @@ export default function App() {
               </button>
             </div>
           </div>
+          
+          <div className="bg-brand-accent/30 border border-brand-secondary/30 rounded-2xl p-6 mb-10 animate-in fade-in slide-in-from-top-4">
+             <div className="flex items-start gap-4">
+               <div className="p-2 bg-brand-primary rounded-xl text-white shadow-lg shadow-brand-primary/20 shrink-0">
+                 <Info size={20} />
+               </div>
+               <div className="space-y-1.5">
+                 <h3 className="font-bold text-brand-text text-sm">선생님 안내</h3>
+                 <p className="text-sm text-brand-muted leading-relaxed font-medium">
+                   선생님 로그인을 하시면 물품 등록/삭제, 수령 완료 처리를 하실 수 있습니다.<br />
+                   물건을 찾으러 오는 학생들에게 본인만 알 수 있는 질문(물건의 특징 및 분실 장소 등)을 해주세요.
+                 </p>
+               </div>
+             </div>
+          </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
             <AnimatePresence mode="popLayout">

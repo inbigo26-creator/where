@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Calendar, Trash2, CheckCircle, Info, Lock, ImageOff, MapPin, User as UserIcon, X, ZoomIn, Eye } from 'lucide-react';
+import { Calendar, Trash2, CheckCircle, Info, ImageOff, MapPin, User as UserIcon, X, ZoomIn } from 'lucide-react';
 import { LostItem, UserRole } from '../types';
 import { lostItemsService } from '../services/lostItemsService';
-import PasswordModal from './PasswordModal';
 
 interface LostItemCardProps {
   key?: string;
@@ -16,7 +15,6 @@ interface LostItemCardProps {
 export default function LostItemCard({ item, userRole, onCollect, onDelete }: LostItemCardProps) {
   const isTeacher = userRole === UserRole.TEACHER;
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const [passModal, setPassModal] = useState<{ isOpen: boolean; title: string; onConfirm: () => void } | null>(null);
 
   return (
     <>
@@ -66,16 +64,9 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
                   <button 
                     onClick={(e) => { 
                       e.stopPropagation(); 
-                      setPassModal({
-                        isOpen: true,
-                        title: '수령 완료 처리',
-                        onConfirm: () => {
-                          if (confirm('이 물품을 수령 완료 처리하시겠습니까?')) {
-                            onCollect(item.id);
-                          }
-                          setPassModal(null);
-                        }
-                      });
+                      if (confirm('이 물품을 수령 완료 처리하시겠습니까?')) {
+                        onCollect(item.id);
+                      }
                     }}
                     className="p-2 bg-brand-accent text-brand-primary rounded-lg hover:bg-brand-primary hover:text-white transition-all border border-brand-secondary/20"
                     title="수령 완료"
@@ -85,16 +76,9 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
                   <button 
                     onClick={(e) => { 
                       e.stopPropagation(); 
-                      setPassModal({
-                        isOpen: true,
-                        title: '물품 삭제',
-                        onConfirm: () => {
-                          if (confirm('정말 삭제하시겠습니까?')) {
-                            onDelete(item.id);
-                          }
-                          setPassModal(null);
-                        }
-                      });
+                      if (confirm('정말 삭제하시겠습니까?')) {
+                        onDelete(item.id);
+                      }
                     }}
                     className="p-2 bg-red-50 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all border border-red-100"
                     title="삭제"
@@ -122,23 +106,6 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
               )}
             </div>
             <p className="text-sm text-brand-muted mt-3 line-clamp-2 leading-relaxed">{item.description}</p>
-          </div>
-
-          {/* Footer Info */}
-          <div className="mt-5 pt-4 border-t border-slate-50">
-            {isTeacher ? (
-              <div className="flex items-start gap-3 p-3 bg-brand-accent/40 rounded-xl border border-brand-secondary/20">
-                <Info size={16} className="text-brand-primary shrink-0 mt-0.5" />
-                <p className="text-[11px] font-bold text-brand-text leading-relaxed">
-                  물건을 찾으러 오는 학생에게 습득 장소나 물건의 특징 등 주인을 확인할 수 있는 질문을 해주세요.
-                </p>
-              </div>
-            ) : (
-              <div className="flex items-center gap-3 text-[11px] font-bold text-brand-muted uppercase tracking-wider">
-                <Info size={16} className="text-brand-secondary shrink-0" />
-                <p>물건 수령 시 상세 특징 확인 절차가 있습니다.</p>
-              </div>
-            )}
           </div>
         </div>
       </motion.div>
@@ -180,15 +147,6 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
           </div>
         )}
       </AnimatePresence>
-
-      {passModal && (
-        <PasswordModal
-          isOpen={passModal.isOpen}
-          onClose={() => setPassModal(null)}
-          onConfirm={passModal.onConfirm}
-          title={passModal.title}
-        />
-      )}
     </>
   );
 }
