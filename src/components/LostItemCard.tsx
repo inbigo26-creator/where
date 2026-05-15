@@ -131,7 +131,7 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
               {loadingNote ? (
                 <div className="h-4 w-32 bg-white animate-pulse rounded"></div>
               ) : (
-                <span className="text-xs font-semibold text-brand-primary italic">
+                <span className="text-sm font-bold text-brand-primary">
                   본인 확인용: {privateNote || '내용 없음'}
                 </span>
               )}
