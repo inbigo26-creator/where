@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Search, 
@@ -31,6 +31,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<'latest' | 'name'>('latest');
   const [isLoading, setIsLoading] = useState(true);
+  const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Check local storage for teacher mode
@@ -90,6 +91,10 @@ export default function App() {
     setIsUploadOpen(false);
   };
 
+  const handleScrollToList = () => {
+    listRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const filteredItems = items
     .filter(item => 
       item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -129,7 +134,10 @@ export default function App() {
               메뉴
             </div>
             <div className="space-y-3">
-              <button className="flex items-center gap-3 w-full p-4 bg-brand-primary text-white rounded-xl font-semibold text-sm transition-all shadow-lg shadow-brand-primary/20">
+              <button 
+                onClick={handleScrollToList}
+                className="flex items-center gap-3 w-full p-4 bg-brand-primary text-white rounded-xl font-semibold text-sm transition-all shadow-lg shadow-brand-primary/20"
+              >
                 <PackageSearch size={18} />
                 전체 분실물 보기
               </button>
@@ -145,7 +153,7 @@ export default function App() {
 
           <div className="p-6 bg-brand-accent/50 text-brand-text rounded-3xl relative overflow-hidden border border-brand-secondary/30">
             <div className="relative z-10">
-              <h3 className="text-[10px] uppercase tracking-[0.2em] text-brand-muted font-bold mb-5 italic">분실물 확인 방법</h3>
+              <h3 className="text-xs uppercase tracking-[0.2em] text-brand-text font-bold mb-5">분실물 확인 방법</h3>
               <div className="space-y-5">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-white text-brand-primary flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">01</div>
@@ -172,23 +180,39 @@ export default function App() {
               최근 등록 물품 안내
             </h4>
             <div className="space-y-3">
-              {items.slice(0, 2).map((item) => (
-                <div key={item.id} className="flex gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-brand-primary mt-1.5 shrink-0"></div>
-                  <p className="text-xs text-brand-muted leading-relaxed font-medium">
-                    <span className="text-brand-text font-bold">{item.name}</span>({item.location})
-                  </p>
-                </div>
-              ))}
-              {items.length === 0 && (
-                <p className="text-[10px] text-brand-muted/60 italic">최근 등록된 물품이 없습니다.</p>
+              {items
+                .filter(item => {
+                  const itemDate = item.createdAt ? (item.createdAt as any).toDate?.() || new Date(item.createdAt as any) : new Date();
+                  const now = new Date();
+                  const diffTime = Math.abs(now.getTime() - itemDate.getTime());
+                  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                  return diffDays <= 7;
+                })
+                .slice(0, 2)
+                .map((item) => (
+                  <div key={item.id} className="flex gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-brand-primary mt-1.5 shrink-0"></div>
+                    <p className="text-xs text-brand-muted leading-relaxed font-medium">
+                      <span className="text-brand-text font-bold">{item.name}</span>({item.location})
+                    </p>
+                  </div>
+                ))
+              }
+              {items.filter(item => {
+                  const itemDate = item.createdAt ? (item.createdAt as any).toDate?.() || new Date(item.createdAt as any) : new Date();
+                  const now = new Date();
+                  const diffTime = Math.abs(now.getTime() - itemDate.getTime());
+                  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                  return diffDays <= 7;
+                }).length === 0 && (
+                <p className="text-[10px] text-brand-muted/60 italic">최근 7일간 등록된 물품이 없습니다.</p>
               )}
             </div>
           </div>
         </aside>
 
         {/* Content Area */}
-        <section className="flex-1 overflow-y-auto p-4 sm:p-8 lg:p-10 h-full">
+        <section ref={listRef} className="flex-1 overflow-y-auto p-4 sm:p-8 lg:p-10 h-full">
           {/* Search & Filter */}
           <div className="flex flex-col md:flex-row gap-6 mb-10 items-center justify-between">
             <div className="relative w-full md:max-w-md group">
