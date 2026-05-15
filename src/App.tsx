@@ -88,6 +88,7 @@ export default function App() {
 
   const handleUpload = async (data: any) => {
     await lostItemsService.createItem(data);
+    setIsUploadOpen(false);
   };
 
   const filteredItems = items.filter(item => 
@@ -97,14 +98,14 @@ export default function App() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-brand-secondary">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-primary"></div>
+      <div className="flex items-center justify-center min-h-screen bg-[#F7FBE1]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#D9ED92]"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-brand-bg flex flex-col font-sans selection:bg-brand-secondary selection:text-brand-text">
       <Header 
         isTeacher={isTeacherMode}
         onOpenUpload={handleUploadClick}
@@ -112,88 +113,88 @@ export default function App() {
         itemCount={availableCount}
       />
 
-      <main className="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
+      <main className="flex-1 flex flex-col lg:flex-row overflow-hidden max-w-[1600px] mx-auto w-full">
         {/* Sidebar / Info Panel (Desktop) */}
-        <aside className="w-full lg:w-80 bg-white border-b lg:border-b-0 lg:border-r border-slate-200 p-6 sm:p-8 flex flex-col gap-8 shrink-0 overflow-y-auto lg:h-full">
+        <aside className="w-full lg:w-80 bg-white border-b lg:border-b-0 lg:border-r border-slate-200/60 p-6 flex flex-col gap-8 shrink-0 overflow-y-auto lg:h-full">
           <div>
-            <div className="mb-4 text-xs font-bold text-slate-400 uppercase tracking-widest px-2">메뉴</div>
-            <div className="space-y-2">
-              <button className="flex items-center gap-4 w-full p-5 bg-[#b8d8b0] text-white rounded-2xl font-bold text-base transition-all shadow-lg shadow-green-100">
-                <PackageSearch size={20} />
+            <div className="mb-4 text-[10px] font-bold text-brand-muted uppercase tracking-[0.2em] px-2 flex items-center gap-2">
+              <div className="w-1 h-3 bg-brand-primary rounded-full"></div>
+              NAVIGATION
+            </div>
+            <div className="space-y-3">
+              <button className="flex items-center gap-3 w-full p-4 bg-brand-primary text-white rounded-xl font-semibold text-sm transition-all shadow-lg shadow-brand-primary/20">
+                <PackageSearch size={18} />
                 전체 분실물 보기
               </button>
               <button 
                 onClick={handleUploadClick}
-                className="flex items-center gap-4 w-full p-5 text-slate-700 hover:bg-slate-50 rounded-2xl font-bold text-base transition-all"
+                className="flex items-center gap-3 w-full p-4 text-brand-muted hover:bg-brand-accent rounded-xl font-semibold text-sm transition-all border border-transparent"
               >
-                <PlusCircle size={20} />
+                <PlusCircle size={18} />
                 물품 등록 (교사용)
               </button>
             </div>
           </div>
 
-          <div className="p-8 bg-[#9dc093] text-white rounded-[40px] relative overflow-hidden shadow-xl shadow-green-100/50">
+          <div className="p-6 bg-brand-accent/50 text-brand-text rounded-3xl relative overflow-hidden border border-brand-secondary/30">
             <div className="relative z-10">
-              <h3 className="text-xs uppercase tracking-[0.2em] text-green-50 font-black mb-6">안내 가이드</h3>
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-9 h-9 rounded-full bg-white text-[#9dc093] flex items-center justify-center font-black text-xs shrink-0">01</div>
-                  <p className="text-sm font-bold leading-tight">목록에서 본인 물건 확인</p>
+              <h3 className="text-[10px] uppercase tracking-[0.2em] text-brand-muted font-bold mb-5 italic">Retrieval Guide</h3>
+              <div className="space-y-5">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-white text-brand-primary flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">01</div>
+                  <p className="text-sm font-medium leading-tight">목록에서 본인 물건 확인</p>
                 </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-9 h-9 rounded-full bg-white text-[#9dc093] flex items-center justify-center font-black text-xs shrink-0">02</div>
-                  <p className="text-sm font-bold leading-tight">보관 장소로 교무실 방문</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-white text-brand-primary flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">02</div>
+                  <p className="text-sm font-medium leading-tight">보관 장소로 교무실 방문</p>
                 </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-9 h-9 rounded-full bg-white text-[#9dc093] flex items-center justify-center font-black text-xs shrink-0">03</div>
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-white text-brand-primary flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">03</div>
                   <div>
-                    <p className="text-sm font-bold leading-tight">상세 특징 질문 답변</p>
-                    <p className="text-[11px] text-green-50 mt-1.5 opacity-80 font-bold italic">"주인만 아는 세부 특징 설명"</p>
+                    <p className="text-sm font-medium leading-tight">상세 특징 질문 답변</p>
+                    <p className="text-[11px] text-brand-muted mt-1 font-medium italic">"주인만 아는 특징 설명"</p>
                   </div>
                 </div>
               </div>
             </div>
-            {/* Decorations */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl"></div>
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12 blur-2xl"></div>
           </div>
 
-          <div className="p-6 bg-slate-50/80 rounded-[32px] border border-slate-200/60 lg:mt-auto">
-            <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+          <div className="p-5 bg-slate-50 rounded-2xl border border-slate-100 lg:mt-auto">
+            <h4 className="text-[9px] font-bold text-brand-muted uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
               <Clock size={12} />
-              최근 알림
+              SYSTEM ALERT
             </h4>
-            <div className="space-y-4">
-              <div className="flex gap-4 pr-2">
-                <div className="w-2 h-2 rounded-full bg-green-400 mt-2 shrink-0 animate-pulse"></div>
-                <p className="text-sm text-slate-600 leading-normal font-bold">분실물 습득 시 즉시 등록 바랍니다.</p>
+            <div className="space-y-3">
+              <div className="flex gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-brand-primary mt-1.5 shrink-0 animate-pulse"></div>
+                <p className="text-xs text-brand-muted leading-relaxed">분실물 습득 시 즉시 등록 관리 바랍니다.</p>
               </div>
             </div>
           </div>
         </aside>
 
         {/* Content Area */}
-        <section className="flex-1 overflow-y-auto p-4 sm:p-8 lg:p-12 h-full">
+        <section className="flex-1 overflow-y-auto p-4 sm:p-8 lg:p-10 h-full">
           {/* Search & Filter */}
-          <div className="flex flex-col md:flex-row gap-6 mb-12 items-center justify-between">
+          <div className="flex flex-col md:flex-row gap-6 mb-10 items-center justify-between">
             <div className="relative w-full md:max-w-md group">
-              <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-green-500 transition-colors" size={22} />
+              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brand-primary transition-colors" size={20} />
               <input 
                 type="text" 
-                placeholder="물건 이름이나 보관 장소로 검색..."
-                className="w-full bg-white border border-slate-200/80 rounded-2xl py-5 pl-16 pr-8 focus:ring-4 focus:ring-green-400/5 focus:border-green-300 transition-all shadow-md text-base sm:text-lg outline-none"
+                placeholder="물건 이름이나 보관 장소 검색..."
+                className="w-full bg-white border border-slate-200 rounded-2xl py-4 pl-14 pr-6 focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary transition-all shadow-sm text-base outline-none"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
 
-            <div className="flex items-center gap-8 text-xs font-black text-slate-400 uppercase tracking-[0.2em] w-full md:w-auto px-2 justify-center">
-              <span className="text-green-500 relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-green-500">최신 등록순</span>
-              <span className="hover:text-slate-700 cursor-pointer transition-colors">보관 장소별</span>
+            <div className="flex items-center gap-8 text-[11px] font-bold text-brand-muted uppercase tracking-[0.2em] w-full md:w-auto px-2 justify-center">
+              <span className="text-brand-primary relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-brand-primary">LATEST LOGS</span>
+              <span className="hover:text-brand-text cursor-pointer transition-colors">BY LOCATION</span>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
             <AnimatePresence mode="popLayout">
               {filteredItems.map((item: LostItem) => (
                 <LostItemCard 
@@ -212,18 +213,19 @@ export default function App() {
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="flex flex-col items-center justify-center py-24 sm:py-32 text-center"
+              className="flex flex-col items-center justify-center py-20 text-center"
             >
-              <div className="text-slate-200 mb-6">
-                <PackageSearch size={64} strokeWidth={1} />
+              <div className="mb-6 bg-white p-10 rounded-full shadow-inner border border-brand-accent relative">
+                <PackageSearch size={64} strokeWidth={1} className="text-brand-secondary" />
+                <div className="absolute top-2 right-2 w-4 h-4 bg-brand-primary rounded-full animate-ping opacity-20"></div>
               </div>
-              <h3 className="text-2xl font-bold text-slate-400">주인님을 기다리는 물건이 없어요</h3>
-              <p className="text-slate-300 text-sm mt-3 uppercase tracking-widest font-black">All items returned or none found</p>
+              <h3 className="text-xl font-bold text-brand-text mb-2">기다리는 물건이 없어요</h3>
+              <p className="text-brand-muted text-sm uppercase tracking-widest font-medium">오늘도 평화로운 학교!</p>
             </motion.div>
           )}
 
           {/* Bottom Spacer for Mobile FAB */}
-          <div className="h-20 lg:hidden"></div>
+          <div className="h-24 lg:hidden"></div>
         </section>
 
         {/* Floating Action Button (Mobile Teacher) */}
@@ -233,7 +235,7 @@ export default function App() {
             animate={{ scale: 1, opacity: 1 }}
             whileTap={{ scale: 0.9 }}
             onClick={handleUploadClick}
-            className="fixed bottom-20 right-6 lg:hidden w-14 h-14 bg-[#9dc093] text-white rounded-full flex items-center justify-center shadow-2xl shadow-green-300 z-30"
+            className="fixed bottom-24 right-6 lg:hidden w-16 h-16 bg-brand-primary text-white rounded-full flex items-center justify-center shadow-xl shadow-brand-primary/30 z-30 border-2 border-white"
           >
             <PlusCircle size={28} />
           </motion.button>
@@ -241,15 +243,15 @@ export default function App() {
       </main>
 
       {/* Footer Bar */}
-      <footer className="h-16 bg-white border-t border-slate-200 px-6 md:px-10 flex flex-col sm:flex-row items-center justify-between py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest shrink-0 gap-2">
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+      <footer className="h-20 bg-white border-t border-slate-100 px-6 md:px-10 flex flex-col sm:flex-row items-center justify-between py-4 text-[10px] font-medium text-brand-muted uppercase tracking-[0.2em] shrink-0 gap-3">
+        <div className="flex items-center gap-3">
+          <div className="w-2 h-2 rounded-full bg-brand-primary/40"></div>
           <span>School Integrity & Retrieval Office</span>
         </div>
-        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6">
-          <span>Version 1.0.0 (2026) © INBIGO. All Rights Reserved.</span>
+        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+          <span>Version 1.0.0 © INBIGO. All Rights Reserved.</span>
           <span className="hidden sm:inline border-l border-slate-200 h-3"></span>
-          <span className="text-green-500">System Stable</span>
+          <span className="text-brand-primary font-bold">System Status: Stable</span>
         </div>
       </footer>
 

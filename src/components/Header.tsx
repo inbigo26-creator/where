@@ -15,35 +15,35 @@ export default function Header({
   itemCount 
 }: Omit<HeaderProps, 'onToggleTeacher'>) {
   return (
-    <header className="h-24 bg-white border-b border-slate-200 flex items-center justify-between px-6 md:px-10 shrink-0 sticky top-0 z-40">
+    <header className="h-20 bg-white border-b border-slate-100 flex items-center justify-between px-6 md:px-10 shrink-0 sticky top-0 z-40">
       <div className="flex items-center gap-4">
-        <div className="w-12 h-12 bg-[#9dc093] rounded-xl flex items-center justify-center shadow-lg shadow-green-100">
-          <PackageSearch className="w-7 h-7 text-white" />
+        <div className="w-10 h-10 bg-brand-primary/10 rounded-xl flex items-center justify-center text-brand-primary">
+          <PackageSearch className="w-6 h-6" />
         </div>
         <div>
-          <h1 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">주인님 어디 계세요</h1>
-          <p className="text-[10px] font-semibold text-green-500 uppercase tracking-widest">School Lost & Found System</p>
+          <h1 className="text-xl font-bold text-brand-text tracking-tight leading-none mb-1">주인님 어디 계세요</h1>
+          <p className="text-[10px] font-bold text-brand-muted uppercase tracking-[0.2em]">Lost & Found Central</p>
         </div>
       </div>
 
-        <div className="flex items-center gap-6">
-        <div className="hidden lg:flex bg-green-50 border border-green-100 rounded-3xl px-8 py-4 items-center gap-6 shadow-sm">
-          <span className="text-green-900 font-bold text-sm">현재 대기 중인 물건</span>
-          <span className="text-4xl font-black text-green-500 tabular-nums leading-none">
-            {itemCount}<span className="text-base ml-1 font-bold">건</span>
+      <div className="flex items-center gap-6">
+        <div className="hidden sm:flex bg-brand-accent/30 border border-brand-secondary/20 rounded-2xl px-5 py-2.5 items-center gap-6">
+          <span className="text-brand-muted font-semibold text-xs">현재 보관 물품</span>
+          <span className="text-2xl font-bold text-brand-primary tabular-nums leading-none">
+            {itemCount}<span className="text-[10px] ml-1 font-bold uppercase">Items</span>
           </span>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           {isTeacher && (
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={onOpenUpload}
-              className="btn-primary flex items-center gap-3 text-base px-8 py-4"
+              className="btn-primary flex items-center gap-2.5 text-sm px-6 py-3"
             >
-              <PlusCircle size={22} />
-              <span className="hidden sm:inline">물품 등록</span>
+              <PlusCircle size={18} />
+              <span className="hidden md:inline">물품 등록</span>
             </motion.button>
           )}
         </div>
