@@ -16,14 +16,14 @@ export default function Header({
   itemCount 
 }: HeaderProps) {
   return (
-    <header className="h-20 bg-white border-b border-slate-100 flex items-center justify-between px-6 md:px-10 shrink-0 sticky top-0 z-40">
-      <div className="flex items-center gap-4">
-        <div className="w-10 h-10 bg-brand-primary/10 rounded-xl flex items-center justify-center text-brand-primary">
-          <PackageSearch className="w-6 h-6" />
+    <header className="h-20 bg-white border-b border-slate-100 flex items-center justify-between px-4 sm:px-6 md:px-10 shrink-0 sticky top-0 z-40">
+      <div className="flex items-center gap-2 sm:gap-4 overflow-hidden">
+        <div className="w-9 h-9 sm:w-10 sm:h-10 bg-brand-primary/10 rounded-xl flex items-center justify-center text-brand-primary shrink-0">
+          <PackageSearch className="w-5 h-5 sm:w-6 sm:h-6" />
         </div>
-        <div>
-          <h1 className="text-xl font-bold text-brand-text tracking-tight leading-none mb-1">주인님 어디 계세요</h1>
-          <p className="text-[11px] font-bold text-brand-muted uppercase tracking-[0.1em]">인비고 분실물 통합 관리 시스템</p>
+        <div className="min-w-0">
+          <h1 className="text-base sm:text-lg md:text-xl font-bold text-brand-text tracking-tight leading-none mb-1 truncate">주인님 어디 계세요</h1>
+          <p className="text-[9px] sm:text-[10px] md:text-[11px] font-bold text-brand-muted uppercase tracking-wider truncate">인비고 분실물 관리 시스템</p>
         </div>
       </div>
 
@@ -40,14 +40,14 @@ export default function Header({
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={onToggleTeacher}
-            className={`flex items-center justify-center gap-2 w-36 py-3 rounded-2xl font-bold text-xs transition-all ${
+            className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3 rounded-2xl font-bold text-[10px] sm:text-xs transition-all whitespace-nowrap ${
               isTeacher 
                 ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/20' 
                 : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
             }`}
           >
-            {isTeacher ? <LogOut size={18} /> : <LogIn size={18} />}
-            <span>{isTeacher ? '선생님 로그아웃' : '선생님 로그인'}</span>
+            {isTeacher ? <LogOut size={16} className="sm:w-[18px]" /> : <LogIn size={16} className="sm:w-[18px]" />}
+            <span>{isTeacher ? '로그아웃' : '선생님 로그인'}</span>
           </motion.button>
 
           {isTeacher && (

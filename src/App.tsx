@@ -140,31 +140,31 @@ export default function App() {
 
       <main className="flex-1 flex flex-col lg:flex-row overflow-hidden max-w-[1600px] mx-auto w-full">
         {/* Sidebar / Info Panel (Desktop) */}
-        <aside className="w-full lg:w-80 bg-white border-b lg:border-b-0 lg:border-r border-slate-200/60 p-6 flex flex-col gap-8 shrink-0 overflow-y-auto lg:h-full">
+        <aside className="w-full lg:w-80 bg-white border-b lg:border-b-0 lg:border-r border-slate-200/60 p-5 sm:p-6 flex flex-col gap-6 sm:gap-8 shrink-0 overflow-y-auto lg:h-full">
           <div>
-            <div className="mb-4 text-[10px] font-bold text-brand-muted uppercase tracking-[0.2em] px-2 flex items-center gap-2">
+            <div className="mb-3 text-[10px] font-bold text-brand-muted uppercase tracking-[0.15em] px-2 flex items-center gap-2">
               <div className="w-1 h-3 bg-brand-primary rounded-full"></div>
               메뉴
             </div>
-            <div className="space-y-3">
+            <div className="grid grid-cols-2 lg:grid-cols-1 gap-3">
               <button 
                 onClick={handleScrollToList}
-                className="flex items-center gap-3 w-full p-4 bg-brand-primary text-white rounded-xl font-semibold text-sm transition-all shadow-lg shadow-brand-primary/20"
+                className="flex items-center justify-center lg:justify-start gap-2 sm:gap-3 w-full p-3 sm:p-4 bg-brand-primary text-white rounded-xl font-semibold text-xs sm:text-sm transition-all shadow-lg shadow-brand-primary/20"
               >
-                <PackageSearch size={18} />
-                전체 분실물 보기
+                <PackageSearch size={16} className="sm:w-[18px]" />
+                <span>분실물 보기</span>
               </button>
               <button 
                 onClick={handleUploadClick}
-                className="flex items-center gap-3 w-full p-4 text-brand-muted hover:bg-brand-accent rounded-xl font-semibold text-sm transition-all border border-transparent"
+                className="flex items-center justify-center lg:justify-start gap-2 sm:gap-3 w-full p-3 sm:p-4 text-brand-muted hover:bg-brand-accent rounded-xl font-semibold text-xs sm:text-sm transition-all border border-slate-100 lg:border-transparent"
               >
-                <PlusCircle size={18} />
-                물품 등록 (교사용)
+                <PlusCircle size={16} className="sm:w-[18px]" />
+                <span>물품 등록</span>
               </button>
             </div>
           </div>
 
-          <div className="p-6 bg-brand-accent/50 text-brand-text rounded-3xl relative overflow-hidden border border-brand-secondary/30">
+          <div className="hidden sm:block p-6 bg-brand-accent/50 text-brand-text rounded-3xl relative overflow-hidden border border-brand-secondary/30">
             <div className="relative z-10">
               <h3 className="text-xs uppercase tracking-[0.05em] text-brand-text font-bold mb-5">분실물 확인 방법</h3>
               <div className="space-y-5">
@@ -279,7 +279,7 @@ export default function App() {
              </div>
           </div>
 
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <AnimatePresence mode="popLayout">
               {filteredItems.map((item: LostItem) => (
                 <LostItemCard 
@@ -328,12 +328,12 @@ export default function App() {
       </main>
 
       {/* Footer Bar */}
-      <footer className="h-20 bg-white border-t border-slate-100 px-6 md:px-10 flex flex-col sm:flex-row items-center justify-between py-4 text-[10px] font-medium text-brand-muted uppercase tracking-[0.2em] shrink-0 gap-3">
+      <footer className="h-auto sm:h-20 bg-white border-t border-slate-100 px-6 md:px-10 flex flex-col sm:flex-row items-center justify-between py-6 sm:py-4 text-[9px] sm:text-[10px] font-medium text-brand-muted uppercase tracking-[0.15em] sm:tracking-[0.2em] shrink-0 gap-4 sm:gap-3">
         <div className="flex items-center gap-3">
           <div className="w-2 h-2 rounded-full bg-brand-primary/40"></div>
-          <span>School Integrity & Retrieval Office</span>
+          <span>INBIGO SIRO Office</span>
         </div>
-        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-8 text-center sm:text-left">
           <span>Version 1.0.0 © INBIGO. All Rights Reserved.</span>
           <span className="hidden sm:inline border-l border-slate-200 h-3"></span>
           <span className="text-brand-primary font-bold">System Status: Stable</span>
