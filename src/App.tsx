@@ -116,39 +116,39 @@ export default function App() {
         {/* Sidebar / Info Panel (Desktop) */}
         <aside className="w-full lg:w-80 bg-white border-b lg:border-b-0 lg:border-r border-slate-200 p-6 sm:p-8 flex flex-col gap-8 shrink-0 overflow-y-auto lg:h-full">
           <div>
-            <div className="mb-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2">메뉴</div>
-            <div className="space-y-1">
-              <button className="flex items-center gap-3 w-full p-4 bg-[#b8d8b0] text-white rounded-2xl font-bold text-sm transition-all shadow-lg shadow-green-100">
-                <PackageSearch size={18} />
+            <div className="mb-4 text-xs font-bold text-slate-400 uppercase tracking-widest px-2">메뉴</div>
+            <div className="space-y-2">
+              <button className="flex items-center gap-4 w-full p-5 bg-[#b8d8b0] text-white rounded-2xl font-bold text-base transition-all shadow-lg shadow-green-100">
+                <PackageSearch size={20} />
                 전체 분실물 보기
               </button>
               <button 
                 onClick={handleUploadClick}
-                className="flex items-center gap-3 w-full p-4 text-slate-600 hover:bg-slate-50 rounded-2xl font-bold text-sm transition-all"
+                className="flex items-center gap-4 w-full p-5 text-slate-700 hover:bg-slate-50 rounded-2xl font-bold text-base transition-all"
               >
-                <PlusCircle size={18} />
-                물품 등록 (선생님)
+                <PlusCircle size={20} />
+                물품 등록 (교사용)
               </button>
             </div>
           </div>
 
-          <div className="p-6 bg-[#9dc093] text-white rounded-[32px] relative overflow-hidden shadow-xl shadow-green-100">
+          <div className="p-8 bg-[#9dc093] text-white rounded-[40px] relative overflow-hidden shadow-xl shadow-green-100/50">
             <div className="relative z-10">
-              <h3 className="text-[10px] uppercase tracking-[0.2em] text-green-50 font-bold mb-5">안내 가이드</h3>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-7 h-7 rounded-full bg-white text-[#9dc093] flex items-center justify-center font-bold text-[10px]">01</div>
-                  <p className="text-[11px] font-bold leading-tight">목록에서 본인 물건 확인</p>
+              <h3 className="text-xs uppercase tracking-[0.2em] text-green-50 font-black mb-6">안내 가이드</h3>
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-9 h-9 rounded-full bg-white text-[#9dc093] flex items-center justify-center font-black text-xs shrink-0">01</div>
+                  <p className="text-sm font-bold leading-tight">목록에서 본인 물건 확인</p>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-7 h-7 rounded-full bg-white text-[#9dc093] flex items-center justify-center font-bold text-[10px]">02</div>
-                  <p className="text-[11px] font-bold leading-tight">보관 장소로 선생님 방문</p>
+                <div className="flex items-center gap-4">
+                  <div className="w-9 h-9 rounded-full bg-white text-[#9dc093] flex items-center justify-center font-black text-xs shrink-0">02</div>
+                  <p className="text-sm font-bold leading-tight">보관 장소로 교무실 방문</p>
                 </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-7 h-7 rounded-full bg-white text-[#9dc093] flex items-center justify-center font-bold text-[10px] shrink-0">03</div>
+                <div className="flex items-start gap-4">
+                  <div className="w-9 h-9 rounded-full bg-white text-[#9dc093] flex items-center justify-center font-black text-xs shrink-0">03</div>
                   <div>
-                    <p className="text-[11px] font-bold leading-tight">상세 특징 질문 답변</p>
-                    <p className="text-[9px] text-green-50 mt-1 opacity-70 font-medium">"주인만 아는 세부 특징 설명"</p>
+                    <p className="text-sm font-bold leading-tight">상세 특징 질문 답변</p>
+                    <p className="text-[11px] text-green-50 mt-1.5 opacity-80 font-bold italic">"주인만 아는 세부 특징 설명"</p>
                   </div>
                 </div>
               </div>
@@ -158,15 +158,15 @@ export default function App() {
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12 blur-2xl"></div>
           </div>
 
-          <div className="p-5 bg-slate-50/50 rounded-[24px] border border-slate-200/60 lg:mt-auto">
-            <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
-              <Clock size={10} />
+          <div className="p-6 bg-slate-50/80 rounded-[32px] border border-slate-200/60 lg:mt-auto">
+            <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+              <Clock size={12} />
               최근 알림
             </h4>
-            <div className="space-y-3">
-              <div className="flex gap-3 pr-2">
-                <div className="w-1 h-1 rounded-full bg-green-400 mt-1.5 shrink-0 animate-pulse"></div>
-                <p className="text-[11px] text-slate-500 leading-normal font-medium">분실물 습득 시 즉시 등록 바랍니다.</p>
+            <div className="space-y-4">
+              <div className="flex gap-4 pr-2">
+                <div className="w-2 h-2 rounded-full bg-green-400 mt-2 shrink-0 animate-pulse"></div>
+                <p className="text-sm text-slate-600 leading-normal font-bold">분실물 습득 시 즉시 등록 바랍니다.</p>
               </div>
             </div>
           </div>
@@ -175,21 +175,21 @@ export default function App() {
         {/* Content Area */}
         <section className="flex-1 overflow-y-auto p-4 sm:p-8 lg:p-12 h-full">
           {/* Search & Filter */}
-          <div className="flex flex-col md:flex-row gap-4 sm:gap-6 mb-8 sm:mb-12 items-center justify-between">
+          <div className="flex flex-col md:flex-row gap-6 mb-12 items-center justify-between">
             <div className="relative w-full md:max-w-md group">
-              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-green-500 transition-colors" size={18} />
+              <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-green-500 transition-colors" size={22} />
               <input 
                 type="text" 
                 placeholder="물건 이름이나 보관 장소로 검색..."
-                className="w-full bg-white border border-slate-200/60 rounded-2xl py-4 pl-14 pr-6 focus:ring-4 focus:ring-green-400/5 focus:border-green-300 transition-all shadow-sm text-sm outline-none"
+                className="w-full bg-white border border-slate-200/80 rounded-2xl py-5 pl-16 pr-8 focus:ring-4 focus:ring-green-400/5 focus:border-green-300 transition-all shadow-md text-base sm:text-lg outline-none"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
 
-            <div className="flex items-center gap-6 text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-[0.2em] w-full md:w-auto px-2 justify-center">
+            <div className="flex items-center gap-8 text-xs font-black text-slate-400 uppercase tracking-[0.2em] w-full md:w-auto px-2 justify-center">
               <span className="text-green-500 relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-green-500">최신 등록순</span>
-              <span className="hover:text-slate-600 cursor-pointer transition-colors">보관 장소별</span>
+              <span className="hover:text-slate-700 cursor-pointer transition-colors">보관 장소별</span>
             </div>
           </div>
 
@@ -217,8 +217,8 @@ export default function App() {
               <div className="text-slate-200 mb-6">
                 <PackageSearch size={64} strokeWidth={1} />
               </div>
-              <h3 className="text-lg font-bold text-slate-400">주인님을 기다리는 물건이 없어요</h3>
-              <p className="text-slate-300 text-xs mt-2 uppercase tracking-widest font-bold">All items returned or none found</p>
+              <h3 className="text-2xl font-bold text-slate-400">주인님을 기다리는 물건이 없어요</h3>
+              <p className="text-slate-300 text-sm mt-3 uppercase tracking-widest font-black">All items returned or none found</p>
             </motion.div>
           )}
 

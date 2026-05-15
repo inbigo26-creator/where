@@ -52,67 +52,67 @@ export default function LostItemCard({ item, userRole, onCollect, onDelete }: Lo
         )}
         
         {/* Status Badge */}
-        <div className="absolute top-2 left-2">
-          <span className="bg-white/90 backdrop-blur text-slate-800 text-[8px] px-1.5 py-0.5 rounded font-bold uppercase tracking-widest border border-slate-200 shadow-sm">
+        <div className="absolute top-3 left-3">
+          <span className="bg-white/95 backdrop-blur text-slate-900 text-[10px] px-2.5 py-1 rounded-lg font-black uppercase tracking-widest border border-slate-200 shadow-md">
             {item.status}
           </span>
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 flex flex-col justify-between py-0.5">
+      <div className="flex-1 flex flex-col justify-between py-1">
         <div>
           <div className="flex justify-between items-start">
-            <h3 className="text-xl font-bold text-slate-900 leading-snug">{item.name}</h3>
+            <h3 className="text-2xl font-black text-slate-900 leading-tight tracking-tight">{item.name}</h3>
             {isTeacher && (
-              <div className="flex gap-1 ml-2 opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="flex gap-2 ml-4 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button 
                   onClick={(e) => { e.stopPropagation(); onCollect(item.id); }}
-                  className="p-1.5 bg-green-50 text-green-500 rounded-lg hover:bg-green-500 hover:text-white transition-all"
+                  className="p-2 bg-green-50 text-green-600 rounded-xl hover:bg-green-600 hover:text-white transition-all shadow-sm"
                   title="수령 완료"
                 >
-                  <CheckCircle size={14} />
+                  <CheckCircle size={18} />
                 </button>
                 <button 
                   onClick={(e) => { e.stopPropagation(); onDelete(item.id); }}
-                  className="p-1.5 bg-red-50 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-all"
+                  className="p-2 bg-red-50 text-red-600 rounded-xl hover:bg-red-600 hover:text-white transition-all shadow-sm"
                   title="삭제"
                 >
-                  <Trash2 size={14} />
+                  <Trash2 size={18} />
                 </button>
               </div>
             )}
           </div>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2">
-            <div className="flex items-center gap-1.5 text-xs text-slate-500">
-              <Calendar size={12} className="text-slate-400" />
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-3">
+            <div className="flex items-center gap-2 text-sm font-bold text-slate-500">
+              <Calendar size={14} className="text-slate-400" />
               <span>{new Date(item.dateFound).toLocaleDateString()}</span>
             </div>
-            <div className="flex items-center gap-1.5 text-xs font-bold text-green-500">
-              <div className="w-1.5 h-1.5 rounded-full bg-green-400"></div>
+            <div className="flex items-center gap-2 text-sm font-black text-green-600">
+              <div className="w-2 h-2 rounded-full bg-green-400"></div>
               <span>{item.location}</span>
             </div>
           </div>
-          <p className="text-xs text-slate-500 mt-2 line-clamp-2">{item.description}</p>
+          <p className="text-base text-slate-600 mt-3 font-medium line-clamp-2 leading-relaxed">{item.description}</p>
         </div>
 
         {/* Verification Note (Mini) */}
-        <div className="mt-4 pt-3 border-t border-slate-100">
+        <div className="mt-6 pt-4 border-t border-slate-100">
           {isTeacher ? (
-            <div className="flex items-center gap-2">
-              <Lock size={12} className="text-slate-400" />
+            <div className="flex items-center gap-3">
+              <Lock size={14} className="text-slate-400" />
               {loadingNote ? (
-                <div className="h-3 w-32 bg-slate-100 animate-pulse rounded"></div>
+                <div className="h-4 w-40 bg-slate-100 animate-pulse rounded"></div>
               ) : (
-                <span className="text-[11px] font-medium text-slate-600 italic">
-                  질문: {privateNote || '등록된 질문 없음'}
+                <span className="text-sm font-bold text-slate-700 italic">
+                  본인 확인 질문: {privateNote || '등록된 내용 없음'}
                 </span>
               )}
             </div>
           ) : (
-            <div className="flex items-center gap-2 text-[10px] text-slate-400">
-              <Info size={12} className="text-green-400 shrink-0" />
-              <p>방문 시 상세 특징 질문 답변 필요</p>
+            <div className="flex items-center gap-3 text-xs font-black text-slate-500 uppercase tracking-widest">
+              <Info size={16} className="text-green-500 shrink-0" />
+              <p>교무실 방문 시 상세 특징 질문 답변 필요</p>
             </div>
           )}
         </div>
