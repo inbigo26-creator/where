@@ -50,8 +50,17 @@ export default function App() {
     });
 
     // 3. Items Listener
-    const unsubscribeItems = lostItemsService.subscribeToItems((items) => {
-      setItems(items.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()));
+    const unsubscribeItems = lostItemsService.subscribeToItems((newItems) => {
+      const getTimestamp = (item: LostItem) => {
+        if (!item.createdAt) return 0;
+        if (typeof (item.createdAt as any).toMillis === 'function') {
+          return (item.createdAt as any).toMillis();
+        }
+        return new Date(item.createdAt as any).getTime();
+      };
+
+      const sortedItems = [...newItems].sort((a, b) => getTimestamp(b) - getTimestamp(a));
+      setItems(sortedItems);
     });
 
     // 4. Cleanup old items (30 days policy)
@@ -114,8 +123,16 @@ export default function App() {
       item.location.toLowerCase().includes(searchQuery.toLowerCase())
     )
     .sort((a, b) => {
+      const getTimestamp = (item: LostItem) => {
+        if (!item.createdAt) return 0;
+        if (typeof (item.createdAt as any).toMillis === 'function') {
+          return (item.createdAt as any).toMillis();
+        }
+        return new Date(item.createdAt as any).getTime();
+      };
+
       if (sortBy === 'latest') {
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        return getTimestamp(b) - getTimestamp(a);
       } else {
         return a.name.localeCompare(b.name, 'ko-KR');
       }
@@ -210,6 +227,16 @@ export default function App() {
                   const diffTime = Math.abs(now.getTime() - itemDate.getTime());
                   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                   return diffDays <= 7;
+                })
+                .sort((a, b) => {
+                  const getTimestamp = (item: LostItem) => {
+                    if (!item.createdAt) return 0;
+                    if (typeof (item.createdAt as any).toMillis === 'function') {
+                      return (item.createdAt as any).toMillis();
+                    }
+                    return new Date(item.createdAt as any).getTime();
+                  };
+                  return getTimestamp(b) - getTimestamp(a);
                 })
                 .map((item) => (
                   <div key={item.id} className="flex gap-3">
