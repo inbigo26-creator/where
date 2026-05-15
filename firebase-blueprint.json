@@ -1,0 +1,48 @@
+{
+  "entities": {
+    "LostItem": {
+      "title": "Lost Item",
+      "description": "An item found in the school that is waiting for its owner.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string", "description": "Short name or category of the item" },
+        "description": { "type": "string", "description": "Public description seen by students" },
+        "photoUrl": { "type": "string", "format": "uri" },
+        "dateFound": { "type": "string", "format": "date-time" },
+        "location": { "type": "string", "description": "Current storage location (e.g., Teachers' Office 1)" },
+        "privateNote": { "type": "string", "description": "Secret characteristics for verification (Teachers only)" },
+        "status": {
+          "type": "string",
+          "enum": ["available", "collected", "archived"]
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "creatorId": { "type": "string", "description": "UID of the teacher who posted it" }
+      },
+      "required": ["name", "dateFound", "location", "status", "createdAt", "creatorId"]
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Additional user information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["teacher", "student"] },
+        "email": { "type": "string", "format": "email" }
+      },
+      "required": ["uid", "role"]
+    }
+  },
+  "firestore": {
+    "/lostItems/{itemId}": {
+      "schema": "LostItem",
+      "description": "Collection of lost items"
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles and roles"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-slate-50: #fffbf9; /* Soft cream/peach tint */
+  --color-slate-100: #fbf5f2;
+  --color-slate-200: #f5ece8;
+  --color-slate-300: #eaded9;
+  --color-slate-400: #cbbab5;
+  --color-slate-500: #a99893;
+  --color-slate-600: #897974;
+  --color-slate-700: #685a56;
+  --color-slate-800: #493c39;
+  --color-slate-900: #2b2120;
+
+  --color-blue-50: #fff0f3; /* Cherry Blossom Pink */
+  --color-blue-100: #ffdeea;
+  --color-blue-500: #f8adc2; /* Pastel Pink */
+  --color-blue-600: #e09ba9; /* Muted Rose */
+  --color-blue-900: #8a4d5a;
+  
+  --color-pastel-green: #eaf6ea; /* Spring Green */
+  --color-pastel-blue: #e3f2fd;
+  --color-pastel-yellow: #fffde7;
+  --color-pastel-pink: #feedef;
+  
+  --color-brand-primary: #e09ba9;
+  --color-brand-secondary: var(--color-slate-50);
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-slate-50 text-slate-800 antialiased;
+  }
+}
+
+.card-minimal {
+  @apply bg-white rounded-[32px] border border-pink-100/50 shadow-sm transition-all hover:border-pink-200 hover:shadow-md;
+}
+
+.btn-primary {
+  @apply bg-[#e09ba9] text-white rounded-2xl px-6 py-3 font-bold transition-all hover:bg-[#d48a99] active:scale-95 shadow-lg shadow-pink-100;
+}
+
+.btn-secondary {
+  @apply bg-white text-slate-600 border border-slate-200 rounded-2xl px-6 py-3 font-bold transition-all hover:bg-slate-50 active:scale-95;
+}
+
+.btn-dark {
+  @apply bg-[#b8d8b0] text-white rounded-2xl px-6 py-3 font-bold transition-all hover:bg-[#a6c89e] active:scale-95 shadow-lg shadow-green-100;
+}
+

@@ -1,0 +1,26 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // 0. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 2. Lost Items
+    match /lostItems/{itemId} {
+      // Allow public read
+      allow read: if true;
+      
+      // Allow public create/update/delete for no-login simplicity
+      // In a real production app we would use Auth, but user requested no login.
+      allow create, update, delete: if true;
+
+      // Subcollection for private notes
+      match /private/note {
+        allow read, write: if true;
+      }
+    }
+  }
+}
